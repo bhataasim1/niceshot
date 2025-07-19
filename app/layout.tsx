@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "March Shot",
-  description: "Want stunning social posts? MarchShot makes your screenshots pop in just a few clicks!",
+  description:
+    "Want stunning social posts? MarchShot makes your screenshots pop in just a few clicks!",
 };
 
 export default function RootLayout({

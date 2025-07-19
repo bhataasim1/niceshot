@@ -1,0 +1,2 @@
+pnpm run format
+npx lint-staged
