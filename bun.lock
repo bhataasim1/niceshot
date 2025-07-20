@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "march-shot",
+      "name": "nice-shot",
       "dependencies": {
         "@radix-ui/react-slot": "^1.2.3",
         "class-variance-authority": "^0.7.1",
