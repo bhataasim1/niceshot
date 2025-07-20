@@ -6,9 +6,11 @@ interface ImageState {
   uploadedImageUrl: string | null;
   imageName: string | null;
   selectedGradient: GradientKey;
+  borderRadius: number;
   setImage: (file: File) => void;
   clearImage: () => void;
   setGradient: (gradient: GradientKey) => void;
+  setBorderRadius: (radius: number) => void;
   exportImage: () => Promise<void>;
 }
 
@@ -16,6 +18,7 @@ export const useImageStore = create<ImageState>((set, get) => ({
   uploadedImageUrl: null,
   imageName: null,
   selectedGradient: 'primary_gradient',
+  borderRadius: 24,
 
   setImage: (file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -38,6 +41,10 @@ export const useImageStore = create<ImageState>((set, get) => ({
 
   setGradient: (gradient: GradientKey) => {
     set({ selectedGradient: gradient });
+  },
+
+  setBorderRadius: (radius: number) => {
+    set({ borderRadius: radius });
   },
 
   exportImage: async () => {

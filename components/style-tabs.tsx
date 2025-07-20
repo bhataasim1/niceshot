@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FrameTab } from './frame-tab';
+import { MockupTab } from './mockup-tab';
 
 export const StyleTabs = () => {
   return (
@@ -9,7 +10,7 @@ export const StyleTabs = () => {
         <TabsTrigger value="frame">Frame</TabsTrigger>
       </TabsList>
       <TabsContent value="mockup">
-        <div>Mockups soon</div>
+        <MockupTab />
       </TabsContent>
       <TabsContent value="frame">
         <FrameTab />
