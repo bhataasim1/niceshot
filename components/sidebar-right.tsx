@@ -1,23 +1,23 @@
-import * as React from "react"
+import * as React from 'react';
 
-import { NavUser } from "@/components/nav-user"
+import { NavUser } from '@/components/nav-user';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarSeparator
-} from "@/components/ui/sidebar"
-import { Button } from "./ui/button"
+  SidebarSeparator,
+} from '@/components/ui/sidebar';
+import { Button } from './ui/button';
 
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  }
-}
+    name: 'shadcn',
+    email: 'm@example.com',
+    avatar: '/avatars/shadcn.jpg',
+  },
+};
 
 export function SidebarRight({
   ...props
@@ -29,10 +29,7 @@ export function SidebarRight({
       {...props}
     >
       <SidebarHeader className="border-sidebar-border h-16 border-b">
-        <Button
-        >
-          Export
-        </Button>
+        <Button>Export</Button>
       </SidebarHeader>
       <SidebarContent>
         {/* <DatePicker /> */}
@@ -43,5 +40,5 @@ export function SidebarRight({
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

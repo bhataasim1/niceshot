@@ -1,10 +1,5 @@
-
-import { SidebarRight } from "@/components/sidebar-right"
-import {
-  SidebarInset,
-  SidebarProvider
-} from "@/components/ui/sidebar"
-
+import { SidebarRight } from '@/components/sidebar-right';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 export default function EditorLayout({
   children,
@@ -13,9 +8,7 @@ export default function EditorLayout({
 }>) {
   return (
     <SidebarProvider>
-      <SidebarInset>
-        {children}
-      </SidebarInset>
+      <SidebarInset>{children}</SidebarInset>
       <SidebarRight />
     </SidebarProvider>
   );
