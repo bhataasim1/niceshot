@@ -33,17 +33,20 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dom-to-image": "^2.6.0",
     "lucide-react": "^0.525.0",
     "next": "15.4.2",
     "react": "19.1.0",
     "react-day-picker": "^9.8.0",
     "react-dom": "19.1.0",
     "react-dropzone": "^14.3.8",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/dom-to-image": "^2.6.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
