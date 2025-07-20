@@ -18,22 +18,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2
+      - uses: oven-sh/setup-bun@v2
         with:
-          version:
-            8
+          bun-version:
+            1.2.1
 
             # Cache node_modules
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install
 
       - name: Run lint
-        run: pnpm run lint
+        run: bun run lint
 
       - name: Run Format Check
-        run: pnpm run format
+        run: bun run format
