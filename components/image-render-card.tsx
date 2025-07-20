@@ -6,7 +6,7 @@ interface ImageRenderCardProps {
 }
 
 export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
-  const { selectedGradient } = useImageStore();
+  const { selectedGradient, borderRadius } = useImageStore();
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -22,7 +22,8 @@ export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
             <img
               src={imageUrl}
               alt="Uploaded image"
-              className="max-w-full max-h-full object-contain rounded-lg"
+              className="max-w-full max-h-full object-contain"
+              style={{ borderRadius: `${borderRadius}px` }}
             />
           </div>
         </div>
