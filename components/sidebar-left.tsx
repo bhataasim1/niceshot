@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
 import {
   Sidebar,
@@ -8,11 +8,11 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import { useImageStore } from "@/lib/store";
-import { Upload } from "lucide-react";
-import { NavUser } from "./nav-user";
-import { Button } from "./ui/button";
+} from '@/components/ui/sidebar';
+import { useImageStore } from '@/lib/store';
+import { Upload } from 'lucide-react';
+import { NavUser } from './nav-user';
+import { Button } from './ui/button';
 
 const data = {
   user: {
@@ -39,11 +39,11 @@ export function SidebarLeft({
   return (
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
-        <Button 
+        <Button
           onClick={handleExport}
           disabled={!uploadedImageUrl}
           className="w-full"
-          variant={uploadedImageUrl ? "default" : "secondary"}
+          variant={uploadedImageUrl ? 'default' : 'secondary'}
         >
           <Upload className="w-4 h-4 mr-2" />
           Export Image
@@ -59,5 +59,5 @@ export function SidebarLeft({
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

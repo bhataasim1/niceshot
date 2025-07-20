@@ -12,15 +12,15 @@ interface ImageState {
 export const useImageStore = create<ImageState>((set, get) => ({
   uploadedImageUrl: null,
   imageName: null,
-  
+
   setImage: (file: File) => {
     const imageUrl = URL.createObjectURL(file);
     set({
       uploadedImageUrl: imageUrl,
-      imageName: file.name
+      imageName: file.name,
     });
   },
-  
+
   clearImage: () => {
     const { uploadedImageUrl } = get();
     if (uploadedImageUrl) {
@@ -28,10 +28,10 @@ export const useImageStore = create<ImageState>((set, get) => ({
     }
     set({
       uploadedImageUrl: null,
-      imageName: null
+      imageName: null,
     });
   },
-  
+
   exportImage: async () => {
     try {
       // Target the image render card element
@@ -40,5 +40,5 @@ export const useImageStore = create<ImageState>((set, get) => ({
       console.error('Export failed:', error);
       throw error;
     }
-  }
-})); 
+  },
+}));
