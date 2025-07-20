@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { Image as ImageIcon, Upload } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 interface ImageUploadProps {
@@ -11,14 +11,10 @@ interface ImageUploadProps {
 }
 
 export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
       if (file && file.type.startsWith('image/')) {
-        const imageUrl = URL.createObjectURL(file);
-        setUploadedImage(imageUrl);
         onImageUpload?.(file);
       }
     },
@@ -34,20 +30,6 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
       multiple: false,
       maxFiles: 1,
     });
-
-  if (uploadedImage) {
-    return (
-      <div className={cn('relative group', className)}>
-        <div className="relative rounded-lg overflow-hidden border border-gray-200 bg-white">
-          <img
-            src={uploadedImage}
-            alt="Uploaded image"
-            className="w-full h-auto max-h-96 object-contain"
-          />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div
