@@ -1,4 +1,8 @@
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
 import { aspectRatios } from '@/constants/aspect-ratios';
 import { useImageStore } from '@/lib/store';
 import { AspectRatioPicker } from './aspect-ratio-picker';
@@ -39,4 +43,4 @@ export const AspectRatioDropdown = () => {
       </PopoverContent>
     </Popover>
   );
-}; 
+};

@@ -11,8 +11,10 @@ export const AspectRatioPicker = () => {
         <Button
           key={aspectRatio.id}
           onClick={() => setAspectRatio(aspectRatio.id)}
-          variant={selectedAspectRatio === aspectRatio.id ? 'secondary' : 'outline'}
-          className='w-full'
+          variant={
+            selectedAspectRatio === aspectRatio.id ? 'secondary' : 'outline'
+          }
+          className="w-full"
         >
           <div className="flex items-center gap-2">
             <div
@@ -30,4 +32,4 @@ export const AspectRatioPicker = () => {
       ))}
     </div>
   );
-}; 
+};
