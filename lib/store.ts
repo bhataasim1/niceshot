@@ -1,16 +1,19 @@
 import { create } from 'zustand';
 import { exportImageWithGradient } from './export-utils';
 import { GradientKey } from '@/constants/gradient-colors';
+import { AspectRatioKey } from '@/constants/aspect-ratios';
 
 interface ImageState {
   uploadedImageUrl: string | null;
   imageName: string | null;
   selectedGradient: GradientKey;
   borderRadius: number;
+  selectedAspectRatio: AspectRatioKey;
   setImage: (file: File) => void;
   clearImage: () => void;
   setGradient: (gradient: GradientKey) => void;
   setBorderRadius: (radius: number) => void;
+  setAspectRatio: (aspectRatio: AspectRatioKey) => void;
   exportImage: () => Promise<void>;
 }
 
@@ -19,6 +22,7 @@ export const useImageStore = create<ImageState>((set, get) => ({
   imageName: null,
   selectedGradient: 'primary_gradient',
   borderRadius: 24,
+  selectedAspectRatio: '16_9',
 
   setImage: (file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -45,6 +49,10 @@ export const useImageStore = create<ImageState>((set, get) => ({
 
   setBorderRadius: (radius: number) => {
     set({ borderRadius: radius });
+  },
+
+  setAspectRatio: (aspectRatio: AspectRatioKey) => {
+    set({ selectedAspectRatio: aspectRatio });
   },
 
   exportImage: async () => {
