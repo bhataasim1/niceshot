@@ -20,7 +20,8 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.2.1
+          bun-version:
+            1.2.1
 
             # Cache node_modules
       - uses: actions/setup-node@v3
