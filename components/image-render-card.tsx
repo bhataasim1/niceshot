@@ -1,8 +1,13 @@
+import { useImageStore } from '@/lib/store';
+import { gradientColors } from '@/constants/gradient-colors';
+
 interface ImageRenderCardProps {
   imageUrl: string;
 }
 
 export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
+  const { selectedGradient } = useImageStore();
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="w-full max-w-7xl">
@@ -10,8 +15,7 @@ export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
           id="image-render-card"
           className="relative w-full h-[80vh] rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center p-8"
           style={{
-            background:
-              'linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%)',
+            background: gradientColors[selectedGradient],
           }}
         >
           <div className="p-6 w-full h-full flex items-center justify-center">

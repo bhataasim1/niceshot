@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useImageStore } from '@/lib/store';
 import { Upload } from 'lucide-react';
+import { StyleTabs } from './style-tabs';
 import { NavUser } from './nav-user';
 import { Button } from './ui/button';
 
@@ -32,7 +33,6 @@ export function SidebarLeft({
       await exportImage();
     } catch (error) {
       console.error('Export failed:', error);
-      // You could add a toast notification here
     }
   };
 
@@ -45,14 +45,12 @@ export function SidebarLeft({
           className="w-full"
           variant={uploadedImageUrl ? 'default' : 'secondary'}
         >
-          <Upload className="w-4 h-4 mr-2" />
+          <Upload className="size-4 mr-2" />
           Export Image
         </Button>
       </SidebarHeader>
-      <SidebarContent>
-        {/* <NavFavorites favorites={data.favorites} />
-        <NavWorkspaces workspaces={data.workspaces} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+      <SidebarContent className="space-y-6">
+        <StyleTabs />
       </SidebarContent>
       <SidebarRail />
       <SidebarFooter>
