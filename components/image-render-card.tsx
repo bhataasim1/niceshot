@@ -9,7 +9,8 @@ export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
         <div
           className="relative w-full rounded-lg overflow-hidden shadow-2xl"
           style={{
-            background: 'linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%)',
+            background:
+              'linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%)',
           }}
         >
           <div className="flex items-center justify-center p-8">
