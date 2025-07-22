@@ -14,6 +14,15 @@ import {
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
 import { useImageStore } from '@/lib/store';
+import { NavUser } from '@/components/nav-user';
+
+const data = {
+  user: {
+    name: 'NiceShot',
+    email: 'm@example.com',
+    avatar: 'https://avatars.githubusercontent.com/u/71691906?v=4',
+  },
+};
 
 export default function EditorLayout({
   children,
@@ -26,8 +35,8 @@ export default function EditorLayout({
     <SidebarProvider>
       <SidebarLeft />
       <SidebarInset>
-        <header className="bg-background sticky top-0 flex h-14 shrink-0 items-center gap-2 border-b z-10">
-          <div className="flex flex-1 items-center gap-2 px-3">
+        <header className="bg-background sticky top-0 flex h-14 shrink-0 items-center justify-between gap-2 border-b z-10">
+          <div className="flex items-center gap-2 px-3">
             <SidebarTrigger />
             <Separator
               orientation="vertical"
@@ -43,6 +52,9 @@ export default function EditorLayout({
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
+          </div>
+          <div className="flex items-center gap-2 px-3">
+            <NavUser user={data.user} />
           </div>
         </header>
         {children}

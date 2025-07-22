@@ -5,23 +5,13 @@ import * as React from 'react';
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar';
 import { useImageStore } from '@/lib/store';
 import { Upload } from 'lucide-react';
 import { StyleTabs } from './style-tabs';
-import { NavUser } from './nav-user';
 import { Button } from './ui/button';
-
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-};
 
 export function SidebarLeft({
   ...props
@@ -53,9 +43,6 @@ export function SidebarLeft({
         <StyleTabs />
       </SidebarContent>
       <SidebarRail />
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
     </Sidebar>
   );
 }
