@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { useImageStore } from '@/lib/store';
 import { NavUser } from '@/components/nav-user';
+import { ModeToggle } from '@/components/common/mode-toggle';
 
 const data = {
   user: {
@@ -54,6 +55,7 @@ export default function EditorLayout({
             </Breadcrumb>
           </div>
           <div className="flex items-center gap-2 px-3">
+            <ModeToggle />
             <NavUser user={data.user} />
           </div>
         </header>
