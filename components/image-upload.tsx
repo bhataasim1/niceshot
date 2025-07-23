@@ -35,38 +35,35 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
     <div
       {...getRootProps()}
       className={cn(
-        'border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/50',
-        isDragActive && !isDragReject && 'border-blue-400 bg-blue-50/50',
-        isDragReject && 'border-red-400 bg-red-50/50',
-        'border-gray-300 bg-gray-50/50',
+        'border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 border-secondary-foreground hover:border-blue-400',
         className
       )}
     >
       <input {...getInputProps()} />
       <div className="flex flex-col items-center space-y-4">
-        <div className="p-3 rounded-full bg-blue-100">
+        <div className="p-3 rounded-full border-2">
           {isDragActive ? (
             <Upload className="w-8 h-8 text-blue-600" />
           ) : (
-            <ImageIcon className="w-8 h-8 text-gray-400" />
+            <ImageIcon className="w-8 h-8" />
           )}
         </div>
         <div className="space-y-2">
-          <p className="text-lg font-medium text-gray-900">
+          <p className="text-lg font-medium">
             {isDragActive
               ? isDragReject
                 ? 'Invalid file type'
                 : 'Drop your image here'
               : 'Drag & drop your image here'}
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm">
             {isDragActive
               ? isDragReject
                 ? 'Please upload an image file'
                 : 'Release to upload'
               : 'or click to browse'}
           </p>
-          <p className="text-xs text-gray-400">Supports: JPG, PNG (max 10MB)</p>
+          <p className="text-xs">Supports: JPG, PNG (max 10MB)</p>
         </div>
       </div>
     </div>
