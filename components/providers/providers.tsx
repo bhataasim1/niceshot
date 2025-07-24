@@ -4,18 +4,24 @@ import { FC, ReactNode } from 'react';
 import { Toaster } from '@/components/ui/sonner';
 
 import { ThemeProvider } from './theme-provider';
+import { TanStackQueryProvider } from './tanstack-query-provider';
+import { ToolTipProvider } from './tool-tip-provider';
 
 const Providers: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      {children}
-      <Toaster richColors position="bottom-right" />
-    </ThemeProvider>
+    <TanStackQueryProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <ToolTipProvider>
+          {children}
+          <Toaster richColors position="bottom-right" />
+        </ToolTipProvider>
+      </ThemeProvider>
+    </TanStackQueryProvider>
   );
 };
 
