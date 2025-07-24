@@ -18,7 +18,7 @@ export const AspectRatioPicker = () => {
         >
           <div className="flex items-center gap-2">
             <div
-              className="bg-muted rounded border"
+              className="bg-primary rounded border"
               style={{
                 width: '24px',
                 height: `${24 * aspectRatio.ratio}px`,
