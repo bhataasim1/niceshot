@@ -16,14 +16,15 @@ import {
 import { useImageStore } from '@/lib/store';
 import { NavUser } from '@/components/nav-user';
 import { ModeToggle } from '@/components/common/mode-toggle';
+import { useUser } from '@/hooks/tanstack-query/user.hooks';
 
-const data = {
-  user: {
-    name: 'NiceShot',
-    email: 'm@example.com',
-    avatar: 'https://avatars.githubusercontent.com/u/71691906?v=4',
-  },
-};
+// const data = {
+//   user: {
+//     name: 'NiceShot',
+//     email: 'm@example.com',
+//     avatar: 'https://avatars.githubusercontent.com/u/71691906?v=4',
+//   },
+// };
 
 export default function EditorLayout({
   children,
@@ -31,6 +32,8 @@ export default function EditorLayout({
   children: React.ReactNode;
 }>) {
   const { imageName } = useImageStore();
+
+  const { data: user, isLoading } = useUser();
 
   return (
     <SidebarProvider>
@@ -56,7 +59,7 @@ export default function EditorLayout({
           </div>
           <div className="flex items-center gap-2 px-3">
             <ModeToggle />
-            <NavUser user={data.user} />
+            <NavUser user={user} />
           </div>
         </header>
         {children}

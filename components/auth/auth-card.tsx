@@ -101,7 +101,7 @@ export default function AuthCard({
             provider="google"
             loading={googleLoading}
             setLoading={setGoogleLoading}
-            callbackURL="/"
+            callbackURL="/editor"
             icon={<AuthIcons.Google className="w-3.5 h-3.5" />}
           />
         </div>
