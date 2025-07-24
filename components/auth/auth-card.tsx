@@ -59,14 +59,16 @@ const SignInButton = ({
     )}
     disabled={loading}
     onClick={async () => {
-      await authClient.signIn.social({
-        provider,
-        callbackURL,
-      }, {
-        onRequest: () => {
-          setLoading(true);
+      await authClient.signIn.social(
+        {
+          provider,
+          callbackURL,
         },
-      }
+        {
+          onRequest: () => {
+            setLoading(true);
+          },
+        }
       );
     }}
   >
