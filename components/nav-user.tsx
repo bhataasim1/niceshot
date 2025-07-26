@@ -1,6 +1,6 @@
 'use client';
 
-import { BadgeCheck, CreditCard, LogOut } from 'lucide-react';
+import { CreditCard, LogOut } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -25,11 +25,6 @@ import { toast } from 'sonner';
 import { Button } from './ui/button';
 
 const links = [
-  {
-    label: 'Account',
-    icon: <BadgeCheck />,
-    href: '/account',
-  },
   {
     label: 'Billing',
     icon: <CreditCard />,
