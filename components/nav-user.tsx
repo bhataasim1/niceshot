@@ -1,6 +1,6 @@
 'use client';
 
-import { BadgeCheck, CreditCard, LogOut } from 'lucide-react';
+import { CreditCard, LogOut } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -17,15 +17,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { Button } from './ui/button';
+import { authClient } from '@/lib/auth-client';
+import { User } from '@/prisma/generated/prisma';
 import Link from 'next/link';
+import { memo } from 'react';
+import { toast } from 'sonner';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 const links = [
-  {
-    label: 'Account',
-    icon: <BadgeCheck />,
-    href: '/account',
-  },
   {
     label: 'Billing',
     icon: <CreditCard />,
@@ -33,17 +33,9 @@ const links = [
   },
 ];
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+const NavUser = memo(({ user }: { user: User | null | undefined }) => {
   const { isMobile } = useSidebar();
-
+  const router = useRouter();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -51,9 +43,9 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <Button size="icon" variant="ghost" className="p-0">
               <Avatar>
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage src={user?.image ?? ''} alt={user?.name ?? ''} />
                 <AvatarFallback className="rounded-lg">
-                  {user.name.charAt(0)}
+                  {user?.name?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
             </Button>
@@ -67,14 +59,14 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage src={user?.image ?? ''} alt={user?.name ?? ''} />
                   <AvatarFallback className="rounded-lg">
-                    {user.name.charAt(0)}
+                    {user?.name?.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -90,7 +82,28 @@ export function NavUser({
               ))}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() =>
+                authClient.signOut({
+                  fetchOptions: {
+                    onRequest: () => {
+                      toast.loading('Signing out...');
+                    },
+                    onSuccess: () => {
+                      localStorage.clear();
+                      toast.success('Signed out successfully');
+                      toast.dismiss();
+                      router.push('/');
+                    },
+                    onError: () => {
+                      toast.error('Failed to sign out');
+                      router.push('/');
+                    },
+                  },
+                })
+              }
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
@@ -99,4 +112,8 @@ export function NavUser({
       </SidebarMenuItem>
     </SidebarMenu>
   );
-}
+});
+
+NavUser.displayName = 'NavUser';
+
+export { NavUser };
