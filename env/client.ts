@@ -9,8 +9,10 @@ export const envClient = createEnv({
   },
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID,
-    NEXT_PUBLIC_POLAR_PRODUCT_PRO_SLUG: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_SLUG,
+    NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID:
+      process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID,
+    NEXT_PUBLIC_POLAR_PRODUCT_PRO_SLUG:
+      process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_SLUG,
   },
   skipValidation: process.env.VERCEL_ENV !== 'production',
 });

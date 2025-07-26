@@ -1,9 +1,5 @@
 import prisma from '@/prisma/prisma';
-import {
-  checkout,
-  polar,
-  portal
-} from '@polar-sh/better-auth';
+import { checkout, polar, portal } from '@polar-sh/better-auth';
 import { Polar } from '@polar-sh/sdk';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
@@ -28,8 +24,8 @@ export const auth = betterAuth({
           products: [
             {
               productId: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID || '',
-              slug: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_SLUG || ''
-            }
+              slug: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_SLUG || '',
+            },
           ],
           successUrl: '/success?checkout_id={CHECKOUT_ID}',
           authenticatedUsersOnly: true,

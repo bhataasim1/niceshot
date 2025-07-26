@@ -64,7 +64,9 @@ const NavUser = memo(({ user }: { user: User | null | undefined }) => {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={async () => await authClient.customer.portal()}>
+              <DropdownMenuItem
+                onClick={async () => await authClient.customer.portal()}
+              >
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
