@@ -1,6 +1,6 @@
 'use client';
 
-import { CreditCard, LogOut } from 'lucide-react';
+import { CreditCard, LogOut, UserIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/sidebar';
 import { authClient } from '@/lib/auth-client';
 import { User } from '@/prisma/generated/prisma';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { toast } from 'sonner';
@@ -66,10 +67,17 @@ const NavUser = memo(({ user }: { user: User | null | undefined }) => {
             <DropdownMenuGroup>
               <DropdownMenuItem
                 onClick={async () => await authClient.customer.portal()}
+                className="cursor-pointer"
               >
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
+              <Link href="/account">
+                <DropdownMenuItem className="cursor-pointer">
+                  <UserIcon />
+                  Account
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
