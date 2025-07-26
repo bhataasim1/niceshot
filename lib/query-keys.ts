@@ -1,3 +1,4 @@
 export const QUERY_KEYS = {
   USER: 'user',
+  CURRENT_USER_WITH_SUBSCRIPTION: 'current-user-with-subscription',
 };
