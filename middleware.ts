@@ -8,7 +8,6 @@ export async function middleware(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
 
   const { pathname } = request.nextUrl;
-  console.log('Pathname: ', pathname);
 
   if (sessionCookie && authRoutes.some((route) => pathname.startsWith(route))) {
     return NextResponse.redirect(new URL('/editor', request.url));

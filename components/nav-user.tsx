@@ -23,6 +23,7 @@ import Link from 'next/link';
 import { memo } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 const links = [
   {
@@ -34,7 +35,7 @@ const links = [
 
 const NavUser = memo(({ user }: { user: User | null | undefined }) => {
   const { isMobile } = useSidebar();
-
+  const router = useRouter();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -93,11 +94,11 @@ const NavUser = memo(({ user }: { user: User | null | undefined }) => {
                       localStorage.clear();
                       toast.success('Signed out successfully');
                       toast.dismiss();
-                      window.location.href = '/';
+                      router.push('/')
                     },
                     onError: () => {
                       toast.error('Failed to sign out');
-                      window.location.reload();
+                      router.push('/');
                     },
                   },
                 })
