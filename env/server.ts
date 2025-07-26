@@ -9,6 +9,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string(),
     POLAR_ACCESS_TOKEN: z.string(),
     POLAR_SERVER: z.enum(['sandbox', 'production']),
+    POLAR_WEBHOOK_SECRET: z.string(),
   },
   experimental__runtimeEnv: process.env,
   skipValidation: process.env.VERCEL_ENV !== 'production',
