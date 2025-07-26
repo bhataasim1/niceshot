@@ -44,7 +44,6 @@ export const auth = betterAuth({
               type === 'subscription.updated'
             ) {
               try {
-
                 const userId = data.customer.externalId;
                 if (!userId) {
                   throw new Error('User ID not found');
@@ -69,8 +68,10 @@ export const auth = betterAuth({
                     currency: data.currency,
                     recurringInterval: data.recurringInterval,
                     status: data.status,
-                    currentPeriodStart: safeParseDate(data.currentPeriodStart) || new Date(),
-                    currentPeriodEnd: safeParseDate(data.currentPeriodEnd) || new Date(),
+                    currentPeriodStart:
+                      safeParseDate(data.currentPeriodStart) || new Date(),
+                    currentPeriodEnd:
+                      safeParseDate(data.currentPeriodEnd) || new Date(),
                     cancelAtPeriodEnd: data.cancelAtPeriodEnd || false,
                     canceledAt: safeParseDate(data.canceledAt),
                     startedAt: safeParseDate(data.startedAt) || new Date(),
@@ -80,10 +81,16 @@ export const auth = betterAuth({
                     productId: data.productId,
                     discountId: data.discountId || null,
                     checkoutId: data.checkoutId || '',
-                    customerCancellationReason: data.customerCancellationReason || null,
-                    customerCancellationComment: data.customerCancellationComment || null,
-                    metadata: data.metadata ? JSON.stringify(data.metadata) : null,
-                    customFieldData: data.customFieldData ? JSON.stringify(data.customFieldData) : null,
+                    customerCancellationReason:
+                      data.customerCancellationReason || null,
+                    customerCancellationComment:
+                      data.customerCancellationComment || null,
+                    metadata: data.metadata
+                      ? JSON.stringify(data.metadata)
+                      : null,
+                    customFieldData: data.customFieldData
+                      ? JSON.stringify(data.customFieldData)
+                      : null,
                     userId: userId,
                   };
 
@@ -93,13 +100,21 @@ export const auth = betterAuth({
                     },
                     update: {
                       ...subscriptionData,
-                      metadata: subscriptionData.metadata ? JSON.parse(subscriptionData.metadata) : null,
-                      customFieldData: subscriptionData.customFieldData ? JSON.parse(subscriptionData.customFieldData) : null,
+                      metadata: subscriptionData.metadata
+                        ? JSON.parse(subscriptionData.metadata)
+                        : null,
+                      customFieldData: subscriptionData.customFieldData
+                        ? JSON.parse(subscriptionData.customFieldData)
+                        : null,
                     },
                     create: {
                       ...subscriptionData,
-                      metadata: subscriptionData.metadata ? JSON.parse(subscriptionData.metadata) : null,
-                      customFieldData: subscriptionData.customFieldData ? JSON.parse(subscriptionData.customFieldData) : null,
+                      metadata: subscriptionData.metadata
+                        ? JSON.parse(subscriptionData.metadata)
+                        : null,
+                      customFieldData: subscriptionData.customFieldData
+                        ? JSON.parse(subscriptionData.customFieldData)
+                        : null,
                     },
                   });
                 });
@@ -108,7 +123,7 @@ export const auth = betterAuth({
               }
             }
           },
-        })
+        }),
       ],
     }),
     nextCookies(),
@@ -132,6 +147,6 @@ export const auth = betterAuth({
     },
   },
   customPaths: {},
-  trustedOrigins: ['http://localhost:3000', 'https://345b2256f787.ngrok-free.app'],
-  allowedOrigins: ['http://localhost:3000', 'https://345b2256f787.ngrok-free.app'],
+  trustedOrigins: ['http://localhost:3000'],
+  allowedOrigins: ['http://localhost:3000'],
 });
