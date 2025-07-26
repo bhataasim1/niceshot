@@ -94,7 +94,7 @@ const NavUser = memo(({ user }: { user: User | null | undefined }) => {
                       localStorage.clear();
                       toast.success('Signed out successfully');
                       toast.dismiss();
-                      router.push('/')
+                      router.push('/');
                     },
                     onError: () => {
                       toast.error('Failed to sign out');
