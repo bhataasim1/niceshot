@@ -7,6 +7,8 @@ export const env = createEnv({
     DATABASE_URL: z.url(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    POLAR_ACCESS_TOKEN: z.string(),
+    POLAR_SERVER: z.enum(['sandbox', 'production']),
   },
   experimental__runtimeEnv: process.env,
   skipValidation: process.env.VERCEL_ENV !== 'production',

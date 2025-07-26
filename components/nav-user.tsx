@@ -19,23 +19,15 @@ import {
 } from '@/components/ui/sidebar';
 import { authClient } from '@/lib/auth-client';
 import { User } from '@/prisma/generated/prisma';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
-import { useRouter } from 'next/navigation';
-
-const links = [
-  {
-    label: 'Billing',
-    icon: <CreditCard />,
-    href: '/billing',
-  },
-];
 
 const NavUser = memo(({ user }: { user: User | null | undefined }) => {
   const { isMobile } = useSidebar();
   const router = useRouter();
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -72,14 +64,10 @@ const NavUser = memo(({ user }: { user: User | null | undefined }) => {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {links.map((link) => (
-                <Link href={link.href} key={link.label}>
-                  <DropdownMenuItem className="cursor-pointer">
-                    {link.icon}
-                    {link.label}
-                  </DropdownMenuItem>
-                </Link>
-              ))}
+              <DropdownMenuItem onClick={async () => await authClient.customer.portal()}>
+                <CreditCard />
+                Billing
+              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
