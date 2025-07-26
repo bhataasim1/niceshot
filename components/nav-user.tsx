@@ -25,7 +25,12 @@ import { memo } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 
-const NavUser = memo(({ user }: { user: User | null | undefined }) => {
+type NavUserProps = {
+  user: User | null | undefined;
+  isProUser: boolean | undefined;
+};
+
+const NavUser = memo(({ user, isProUser }: NavUserProps) => {
   const { isMobile } = useSidebar();
   const router = useRouter();
 
@@ -65,13 +70,15 @@ const NavUser = memo(({ user }: { user: User | null | undefined }) => {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem
-                onClick={async () => await authClient.customer.portal()}
-                className="cursor-pointer"
-              >
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
+              {isProUser && (
+                <DropdownMenuItem
+                  onClick={async () => await authClient.customer.portal()}
+                  className="cursor-pointer"
+                >
+                  <CreditCard />
+                  Billing
+                </DropdownMenuItem>
+              )}
               <Link href="/account">
                 <DropdownMenuItem className="cursor-pointer">
                   <UserIcon />
