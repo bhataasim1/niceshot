@@ -18,27 +18,16 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
 import { useImageStore } from '@/lib/store';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { toast } from 'sonner';
 
 export default function EditorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter();
   const { imageName } = useImageStore();
 
   const { data: userWithSubscription, isLoading } =
     useCurrentUserWithSubscription();
-
-  useEffect(() => {
-    if (!userWithSubscription?.isProUser && !isLoading) {
-      toast.error('You need to be a pro user to access this page');
-      router.push('/pricing');
-    }
-  }, [userWithSubscription?.isProUser, router, isLoading]);
 
   return (
     <SidebarProvider className="font-mono">
