@@ -39,7 +39,6 @@ export default function SuccessPage() {
    */
   // const checkout_id = searchParams.get('checkout_id');
 
-
   useEffect(() => {
     const countdownTimer = setInterval(() => {
       setCountdown((prev) => {
