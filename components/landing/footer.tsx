@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import Image from "next/image";
-import Link from "next/link";
-import { GithubSolid } from "../icons/github-solid-icon";
-import { SquareXTwitter } from "../icons/twitter-icon";
-import { OutlineDiscord } from "../icons/discord-icon";
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { GithubSolid } from '../icons/github-solid-icon';
+import { SquareXTwitter } from '../icons/twitter-icon';
+import { OutlineDiscord } from '../icons/discord-icon';
 
 export function Footer() {
-
   return (
     <motion.footer
       className="bg-background border-t"
@@ -20,12 +19,25 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-8">
           <div className="md:col-span-1 max-w-sm">
             <div className="flex justify-start items-center gap-2 mb-4">
-              <Image src="/logo-white.png" alt="Niceshot" width={40} height={40} className="hidden dark:block" />
-              <Image src="/logo-black.png" alt="Niceshot" width={40} height={40} className="block dark:hidden" />
+              <Image
+                src="/logo-white.png"
+                alt="Niceshot"
+                width={40}
+                height={40}
+                className="hidden dark:block"
+              />
+              <Image
+                src="/logo-black.png"
+                alt="Niceshot"
+                width={40}
+                height={40}
+                className="block dark:hidden"
+              />
               <span className="font-bold text-lg">Niceshot</span>
             </div>
             <p className="text-sm md:text-left text-muted-foreground mb-5">
-              The open-source mockup tool for beautiful, professional visuals. Fast, flexible, and made for creators.
+              The open-source mockup tool for beautiful, professional visuals.
+              Fast, flexible, and made for creators.
             </p>
             <div className="flex justify-start gap-3">
               <Link
@@ -88,11 +100,11 @@ export function Footer() {
           </div>
         </div>
 
-        
-
         <div className="pt-2 flex flex-col md:flex-row justify-between items-start gap-4">
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span>© {new Date().getFullYear()} Niceshot, All Rights Reserved</span>
+            <span>
+              © {new Date().getFullYear()} Niceshot, All Rights Reserved
+            </span>
           </div>
         </div>
       </div>
