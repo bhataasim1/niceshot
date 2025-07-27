@@ -8,11 +8,11 @@ export default function SuccessPage() {
   const { data: userWithSubscription, isLoading } =
     useCurrentUserWithSubscription();
 
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
-  const checkout_id = searchParams.get('checkout_id')
+  const checkout_id = searchParams.get('checkout_id');
 
-  console.log(checkout_id)
+  console.log(checkout_id);
 
   return (
     <div className="container mx-auto px-4 py-8">

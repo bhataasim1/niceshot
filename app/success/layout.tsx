@@ -1,5 +1,5 @@
-import { Loader2Icon } from "lucide-react";
-import { Suspense } from "react";
+import { Loader2Icon } from 'lucide-react';
+import { Suspense } from 'react';
 
 export default function SuccessLayout({
   children,
@@ -10,5 +10,5 @@ export default function SuccessLayout({
     <Suspense fallback={<Loader2Icon className="size-6 animate-spin" />}>
       {children}
     </Suspense>
-  )
+  );
 }
