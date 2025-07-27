@@ -27,7 +27,9 @@ export function Header() {
         height={40}
         className="block dark:hidden"
       />
-      <span className="text-xl font-medium font-mono">Niceshot</span>
+      <span className="text-xl font-medium font-mono hidden md:block">
+        Niceshot
+      </span>
     </Link>
   );
 
