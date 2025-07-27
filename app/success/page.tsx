@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
 import { CheckCircle, Loader2Icon, Sparkles } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 const SuccessIcon = () => (
@@ -27,13 +27,18 @@ const SuccessIcon = () => (
 );
 
 export default function SuccessPage() {
-  const { data: userWithSubscription, isLoading } = useCurrentUserWithSubscription();
-  const searchParams = useSearchParams();
+  const { data: userWithSubscription, isLoading } =
+    useCurrentUserWithSubscription();
+  // const searchParams = useSearchParams();
   const router = useRouter();
   const [countdown, setCountdown] = useState(10);
   const confettiRef = useRef<ConfettiRef>(null);
 
-  const checkout_id = searchParams.get('checkout_id');
+  /**
+   * we need to verify the checkout id with the subscription id
+   */
+  // const checkout_id = searchParams.get('checkout_id');
+
 
   useEffect(() => {
     const countdownTimer = setInterval(() => {
@@ -61,7 +66,7 @@ export default function SuccessPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <AnimatePresence mode='wait'>
+      <AnimatePresence mode="wait">
         <Confetti
           ref={confettiRef}
           className="absolute left-0 top-0 z-0 size-full"
@@ -102,7 +107,8 @@ export default function SuccessPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Welcome to NiceShot Premium, {userWithSubscription?.user?.name}! 🎉
+              Welcome to NiceShot Premium, {userWithSubscription?.user?.name}!
+              🎉
             </motion.p>
 
             <motion.div
@@ -112,7 +118,8 @@ export default function SuccessPage() {
               transition={{ delay: 0.8 }}
             >
               <p className="text-sm text-green-700">
-                Your subscription is now active. You have access to all premium features!
+                Your subscription is now active. You have access to all premium
+                features!
               </p>
             </motion.div>
 
