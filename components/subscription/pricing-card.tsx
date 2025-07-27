@@ -69,6 +69,7 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
         },
       });
     } catch (error) {
+      console.log(error);
       toast.error('Failed to redirect to subscription portal');
     } finally {
       setManageSubscriptionLoading(false);
@@ -120,7 +121,7 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
           className="w-full"
           variant={plan.popular ? 'default' : 'outline'}
         >
-          {isLoading ? (
+          {isLoading || manageSubscriptionLoading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : isProUser ? (
             'Manage Subscription'

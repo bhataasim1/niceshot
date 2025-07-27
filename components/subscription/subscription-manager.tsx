@@ -43,6 +43,7 @@ export const SubscriptionManager = ({
         },
       });
     } catch (error) {
+      console.log(error);
       toast.error('Failed to open subscription portal');
     } finally {
       setIsManaging(false);

@@ -34,6 +34,8 @@ const NavUser = memo(({ user, isProUser }: NavUserProps) => {
   const { isMobile } = useSidebar();
   const router = useRouter();
 
+  console.log(isProUser);
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>

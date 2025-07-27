@@ -2,16 +2,17 @@
 
 import { Skeleton } from '@/components/ui/skeleton';
 import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
+import { useSearchParams } from 'next/navigation';
 
-interface SuccessPageProps {
-  searchParams: {
-    checkout_id?: string;
-  };
-}
-
-export default function SuccessPage({ searchParams }: SuccessPageProps) {
+export default function SuccessPage() {
   const { data: userWithSubscription, isLoading } =
     useCurrentUserWithSubscription();
+
+  const searchParams = useSearchParams()
+
+  const checkout_id = searchParams.get('checkout_id')
+
+  console.log(checkout_id)
 
   return (
     <div className="container mx-auto px-4 py-8">
