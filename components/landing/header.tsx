@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ModeToggle } from '../common/mode-toggle';
-import { GithubSolid } from '../icons/github-solid';
+import { GithubSolid } from '../icons/github-solid-icon';
 import { HeaderBase } from './header-base';
 import Image from 'next/image';
 import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
