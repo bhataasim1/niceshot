@@ -83,7 +83,7 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
       className={`relative ${plan.popular ? 'border-primary shadow-lg md:w-[400px]' : ''}`}
     >
       {plan.popular && (
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 font-mono">
           <Badge variant="default" className="flex items-center gap-1">
             <Star className="h-3 w-3" />
             Most Popular
@@ -91,7 +91,7 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
         </div>
       )}
 
-      <CardHeader>
+      <CardHeader className="font-mono">
         <CardTitle className="flex items-center gap-2">
           {plan.popular && <Crown className="h-5 w-5 text-primary" />}
           {plan.name}
@@ -105,7 +105,7 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 font-mono">
         <ul className="space-y-2">
           {plan.features.map((feature, index) => (
             <li key={index} className="flex items-center gap-2 text-sm">
@@ -118,7 +118,7 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
         <Button
           onClick={isProUser ? handleManageSubscription : handleSubscribe}
           disabled={isLoading}
-          className="w-full"
+          className="w-full font-mono"
           variant={plan.popular ? 'default' : 'outline'}
         >
           {isLoading || manageSubscriptionLoading ? (
