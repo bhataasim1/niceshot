@@ -43,9 +43,9 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
       <div className="flex flex-col items-center space-y-4">
         <div className="p-3 rounded-full border-2">
           {isDragActive ? (
-            <Upload className="w-8 h-8 text-blue-600" />
+            <Upload className="size-8 text-blue-600" />
           ) : (
-            <ImageIcon className="w-8 h-8" />
+            <ImageIcon className="size-8" />
           )}
         </div>
         <div className="space-y-2">

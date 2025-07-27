@@ -1,6 +1,7 @@
 import { aspectRatios } from '@/constants/aspect-ratios';
 import { gradientColors } from '@/constants/gradient-colors';
 import { useImageStore } from '@/lib/store';
+import Image from 'next/image';
 
 interface ImageRenderCardProps {
   imageUrl: string;
@@ -25,11 +26,13 @@ export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
           }}
         >
           <div className="p-6 w-full h-full flex items-center justify-center">
-            <img
+            <Image
               src={imageUrl}
               alt="Uploaded image"
               className="max-w-full max-h-full object-contain"
               style={{ borderRadius: `${borderRadius}px` }}
+              width={1000}
+              height={1000}
             />
           </div>
         </div>
