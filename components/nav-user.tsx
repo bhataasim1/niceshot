@@ -1,6 +1,6 @@
 'use client';
 
-import { CreditCard, LogOut, UserIcon } from 'lucide-react';
+import { LogOut, UserIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -70,15 +70,6 @@ const NavUser = memo(({ user, isProUser }: NavUserProps) => {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {isProUser && (
-                <DropdownMenuItem
-                  onClick={async () => await authClient.customer.portal()}
-                  className="cursor-pointer"
-                >
-                  <CreditCard />
-                  Billing
-                </DropdownMenuItem>
-              )}
               <Link href="/account">
                 <DropdownMenuItem className="cursor-pointer">
                   <UserIcon />
