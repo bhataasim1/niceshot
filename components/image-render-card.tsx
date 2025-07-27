@@ -26,13 +26,11 @@ export const ImageRenderCard = ({ imageUrl }: ImageRenderCardProps) => {
           }}
         >
           <div className="p-6 w-full h-full flex items-center justify-center">
-            <Image
+            <img
               src={imageUrl}
               alt="Uploaded image"
               className="max-w-full max-h-full object-contain"
               style={{ borderRadius: `${borderRadius}px` }}
-              width={1000}
-              height={1000}
             />
           </div>
         </div>
