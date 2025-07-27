@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nice-shot.vercel.app'),
+  metadataBase: new URL('https://www.niceshot.fun'),
   title: {
     default: 'NiceShot - Turn screenshots into beautiful visuals',
     template: '%s | NiceShot',
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
   description:
     'Want stunning social posts? NiceShot makes your screenshots pop in just a few clicks!',
   openGraph: {
-    url: 'https://nice-shot.vercel.app',
+    url: 'https://www.niceshot.fun',
     siteName: 'NiceShot',
   },
   keywords: [
-    'nice-shot.vercel.app',
+    'niceshot.fun',
     'nice shot',
     'nice shot app',
     'nice shot app',

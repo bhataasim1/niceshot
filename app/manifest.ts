@@ -8,7 +8,15 @@ export default function manifest(): MetadataRoute.Manifest {
       'Nice Shot helps you turn plain screenshots into beautiful, share-worthy visuals - instantly. Perfect for product mockups, social posts, and portfolios.',
     start_url: '/',
     display: 'standalone',
-    categories: ['productivity', 'design', 'social-media'],
+    categories: [
+      'productivity',
+      'design',
+      'social-media',
+      'image-editing',
+      'image-generation',
+      'mockup',
+      'gradient backgrounds',
+    ],
     background_color: '#171717',
     icons: [
       {
