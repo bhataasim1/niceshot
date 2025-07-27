@@ -1,15 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useUser } from '@/hooks/tanstack-query/user.hooks';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ModeToggle } from '../common/mode-toggle';
 import { GithubSolid } from '../icons/github-solid-icon';
 import { HeaderBase } from './header-base';
-import Image from 'next/image';
-import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
 
 export function Header() {
-  const { data: user } = useCurrentUserWithSubscription();
+  const { data: user } = useUser();
 
   const leftContent = (
     <Link href="/" className="flex items-center gap-3">
@@ -43,7 +43,7 @@ export function Header() {
         </Link>
         <ModeToggle />
       </div>
-      {!user ? (
+      {user ? (
         <Link href="/editor">
           <Button className="ml-4 font-mono">Editor</Button>
         </Link>
