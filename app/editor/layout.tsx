@@ -41,7 +41,7 @@ export default function EditorLayout({
   }, [userWithSubscription?.isProUser, router, isLoading]);
 
   return (
-    <SidebarProvider>
+    <SidebarProvider className="font-mono">
       <SidebarLeft />
       <SidebarInset>
         <header className="bg-background sticky top-0 flex h-14 shrink-0 items-center justify-between gap-2 border-b z-10">

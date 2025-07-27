@@ -64,7 +64,7 @@ export default function SuccessPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 font-mono">
       <AnimatePresence mode="wait">
         <Confetti
           ref={confettiRef}
