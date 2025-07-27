@@ -43,7 +43,7 @@ export function Header() {
         </Link>
         <ModeToggle />
       </div>
-      {user ? (
+      {!user ? (
         <Link href="/editor">
           <Button className="ml-4 font-mono">Editor</Button>
         </Link>

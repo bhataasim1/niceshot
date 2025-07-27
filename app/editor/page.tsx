@@ -1,25 +1,14 @@
-'use client';
+import { isProUser } from '@/actions/subscription.action';
+import { EditorPage } from '@/components/editor-page';
+import { redirect } from 'next/navigation';
 
-import { ImageRenderCard } from '@/components/image-render-card';
-import { ImageUpload } from '@/components/image-upload';
-import { useImageStore } from '@/lib/store';
+export default async function Page() {
+  const isPro = await isProUser();
 
-export default function Page() {
-  const { uploadedImageUrl, setImage } = useImageStore();
-
-  const handleImageUpload = (file: File) => {
-    setImage(file);
-  };
-
-  if (!uploadedImageUrl) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="max-w-4xl w-full">
-          <ImageUpload onImageUpload={handleImageUpload} />
-        </div>
-      </div>
-    );
+  console.log('isPro', isPro);
+  if (!isPro) {
+    redirect('/pricing');
   }
 
-  return <ImageRenderCard imageUrl={uploadedImageUrl} />;
+  return <EditorPage />;
 }

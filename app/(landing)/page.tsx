@@ -24,7 +24,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Zap className="mr-2 h-4 w-4 text-yellow-500" />
-              Transform your screenshots into stunning visuals
+              Transform images into stunning visuals
             </motion.div>
 
             <motion.h1
