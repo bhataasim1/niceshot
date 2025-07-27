@@ -15,7 +15,7 @@ export function Footer() {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.8, duration: 0.8 }}
     >
-      <div className="max-w-5xl mx-auto px-8 py-10">
+      <div className="max-w-5xl mx-auto px-8 py-10 font-mono">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-8">
           <div className="md:col-span-1 max-w-sm">
             <div className="flex justify-start items-center gap-2 mb-4">

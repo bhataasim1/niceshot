@@ -27,7 +27,7 @@ export function Header() {
         height={40}
         className="block dark:hidden"
       />
-      <span className="text-xl font-medium">Niceshot</span>
+      <span className="text-xl font-medium font-mono">Niceshot</span>
     </Link>
   );
 
@@ -43,11 +43,11 @@ export function Header() {
       </div>
       {user ? (
         <Link href="/editor">
-          <Button className="ml-4">Editor</Button>
+          <Button className="ml-4 font-mono">Editor</Button>
         </Link>
       ) : (
         <Link href="/sign-in">
-          <Button className="ml-4">Sign In</Button>
+          <Button className="ml-4 font-mono">Sign In</Button>
         </Link>
       )}
     </nav>
