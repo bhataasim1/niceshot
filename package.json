@@ -29,6 +29,8 @@
     ]
   },
   "dependencies": {
+    "@polar-sh/better-auth": "^1.0.7",
+    "@polar-sh/sdk": "^0.34.6",
     "@prisma/client": "^6.12.0",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.11",

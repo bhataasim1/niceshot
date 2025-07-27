@@ -1,39 +1,44 @@
 'use client';
 
+import { ModeToggle } from '@/components/common/mode-toggle';
+import { NavUser } from '@/components/nav-user';
 import { SidebarLeft } from '@/components/sidebar-left';
-import { Separator } from '@/components/ui/separator';
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
+import { Separator } from '@/components/ui/separator';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
 import { useImageStore } from '@/lib/store';
-import { NavUser } from '@/components/nav-user';
-import { ModeToggle } from '@/components/common/mode-toggle';
-import { useUser } from '@/hooks/tanstack-query/user.hooks';
-
-// const data = {
-//   user: {
-//     name: 'NiceShot',
-//     email: 'm@example.com',
-//     avatar: 'https://avatars.githubusercontent.com/u/71691906?v=4',
-//   },
-// };
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function EditorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
   const { imageName } = useImageStore();
 
-  const { data: user, isLoading } = useUser();
+  const { data: userWithSubscription, isLoading } =
+    useCurrentUserWithSubscription();
+
+  useEffect(() => {
+    if (!userWithSubscription?.isProUser && !isLoading) {
+      toast.error('You need to be a pro user to access this page');
+      router.push('/pricing');
+    }
+  }, [userWithSubscription?.isProUser, router, isLoading]);
 
   return (
     <SidebarProvider>
@@ -59,7 +64,14 @@ export default function EditorLayout({
           </div>
           <div className="flex items-center gap-2 px-3">
             <ModeToggle />
-            <NavUser user={user} />
+            {isLoading ? (
+              <Skeleton className="size-8 rounded-full" />
+            ) : (
+              <NavUser
+                user={userWithSubscription?.user}
+                isProUser={userWithSubscription?.isProUser}
+              />
+            )}
           </div>
         </header>
         {children}

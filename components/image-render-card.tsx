@@ -1,6 +1,7 @@
 import { aspectRatios } from '@/constants/aspect-ratios';
 import { gradientColors } from '@/constants/gradient-colors';
 import { useImageStore } from '@/lib/store';
+import Image from 'next/image';
 
 interface ImageRenderCardProps {
   imageUrl: string;
