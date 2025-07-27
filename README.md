@@ -135,23 +135,27 @@ niceshot/
 ## 🎨 Features
 
 ### Image Upload
+
 - Drag and drop interface
 - Support for JPG and PNG formats
 - File size validation (max 10MB)
 - Instant preview
 
 ### Gradient Backgrounds
+
 - 14+ beautiful gradient options
 - Primary, sunset, fire, purple, green, blue, and more
 - Real-time preview
 
 ### Aspect Ratios
+
 - 16:9, 3:2, 4:3, 5:4, 1:1 (square)
 - 4:5, 3:4, 2:3, 9:16 (portrait)
 - 3:1, 10:21 (ultra-wide)
 - 16:10 (widescreen)
 
 ### Export Options
+
 - High-quality PNG export
 - Transparent background support
 - Automatic file naming with timestamps
@@ -159,6 +163,7 @@ niceshot/
 ## 🔐 Authentication
 
 The app supports OAuth authentication with:
+
 - Google
 
 ### Setting up OAuth Providers
