@@ -12,39 +12,39 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { authClient } from '@/lib/auth-client';
 import { formatCurrency } from '@/lib/format-currency';
-import { SubscriptionDetailsResult } from '@/types/subscription.types';
+import { PurchaseDetailsResult } from '@/types/purchase.types';
 import { format } from 'date-fns';
 import { Calendar, Crown, ExternalLink, Loader2, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-type SubscriptionManagerProps = {
-  subscription: SubscriptionDetailsResult | null;
+type PurchaseManagerProps = {
+  purchase: PurchaseDetailsResult | null;
   isProUser: boolean;
   isLoading: boolean;
 };
 
-export const SubscriptionManager = ({
-  subscription,
+export const PurchaseManager = ({
+  purchase,
   isProUser,
   isLoading,
-}: SubscriptionManagerProps) => {
+}: PurchaseManagerProps) => {
   const [isManaging, setIsManaging] = useState(false);
 
-  const handleManageSubscription = async () => {
+  const handleManagePurchase = async () => {
     setIsManaging(true);
     try {
       await authClient.customer.portal({
         fetchOptions: {
           onError: () => {
-            toast.error('Failed to open subscription portal');
+            toast.error('Failed to open purchase portal');
           },
         },
       });
     } catch (error) {
       console.log(error);
-      toast.error('Failed to open subscription portal');
+      toast.error('Failed to open purchase portal');
     } finally {
       setIsManaging(false);
     }
@@ -60,21 +60,19 @@ export const SubscriptionManager = ({
     );
   }
 
-  if (!subscription || !isProUser) {
+  if (!purchase || !isProUser) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Crown className="h-5 w-5" />
-            Subscription
+            Pro Access
           </CardTitle>
-          <CardDescription>
-            {`You don't have an active subscription`}
-          </CardDescription>
+          <CardDescription>{`You don't have Pro access`}</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground mb-4">
-            Upgrade to Pro to unlock advanced features and remove limitations.
+            Purchase Pro to unlock advanced features and remove limitations.
           </p>
           <Link href="/pricing">
             <Button>View Plans</Button>
@@ -86,14 +84,14 @@ export const SubscriptionManager = ({
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'active':
+      case 'completed':
         return <Badge variant="default">Active</Badge>;
-      case 'trialing':
-        return <Badge variant="secondary">Trial</Badge>;
-      case 'past_due':
-        return <Badge variant="destructive">Past Due</Badge>;
-      case 'canceled':
-        return <Badge variant="secondary">Canceled</Badge>;
+      case 'pending':
+        return <Badge variant="secondary">Pending</Badge>;
+      case 'failed':
+        return <Badge variant="destructive">Failed</Badge>;
+      case 'refunded':
+        return <Badge variant="secondary">Refunded</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -104,9 +102,9 @@ export const SubscriptionManager = ({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Crown className="h-5 w-5" />
-          Subscription
+          Pro Access
         </CardTitle>
-        <CardDescription>Manage your subscription and billing</CardDescription>
+        <CardDescription>Manage your Pro purchase and billing</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
@@ -114,13 +112,13 @@ export const SubscriptionManager = ({
             <p className="font-medium">Pro Plan</p>
             <p className="text-sm text-muted-foreground">
               {formatCurrency(
-                subscription.subscription?.amount || 0,
-                subscription.subscription?.currency || 'USD'
+                purchase.purchase?.amount || 0,
+                purchase.purchase?.currency || 'USD'
               )}{' '}
-              / {subscription.subscription?.recurringInterval}
+              (One-time payment)
             </p>
           </div>
-          {getStatusBadge(subscription.subscription?.status || 'inactive')}
+          {getStatusBadge(purchase.purchase?.status || 'inactive')}
         </div>
 
         <Separator />
@@ -128,41 +126,25 @@ export const SubscriptionManager = ({
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm">
             <Calendar className="h-4 w-4" />
-            <span>Current period:</span>
+            <span>Purchased on:</span>
             <span className="font-medium">
               {format(
-                new Date(
-                  subscription.subscription?.currentPeriodStart || new Date()
-                ),
-                'MMM d, yyyy'
-              )}{' '}
-              -{' '}
-              {format(
-                new Date(
-                  subscription.subscription?.currentPeriodEnd || new Date()
-                ),
+                new Date(purchase.purchase?.createdAt || new Date()),
                 'MMM d, yyyy'
               )}
             </span>
           </div>
 
-          {subscription.subscription?.cancelAtPeriodEnd && (
-            <div className="flex items-center gap-2 text-sm text-amber-600">
-              <X className="h-4 w-4" />
-              <span>Will cancel at period end</span>
+          {purchase.purchase?.paymentMethod && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Payment method: {purchase.purchase.paymentMethod}</span>
             </div>
           )}
 
-          {subscription.subscription?.canceledAt && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="h-4 w-4" />
-              <span>
-                Canceled on{' '}
-                {format(
-                  new Date(subscription.subscription?.canceledAt || new Date()),
-                  'MMM d, yyyy'
-                )}
-              </span>
+          {purchase.error && (
+            <div className="flex items-center gap-2 text-sm text-amber-600">
+              <X className="h-4 w-4" />
+              <span>{purchase.error}</span>
             </div>
           )}
         </div>
@@ -171,7 +153,7 @@ export const SubscriptionManager = ({
 
         <div className="flex gap-2">
           <Button
-            onClick={handleManageSubscription}
+            onClick={handleManagePurchase}
             disabled={isManaging}
             variant="outline"
             className="flex-1"

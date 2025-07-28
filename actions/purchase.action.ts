@@ -2,7 +2,7 @@
 import { getUser } from '@/lib/auth-utils';
 import { Purchase } from '@/prisma/generated/prisma';
 import prisma from '@/prisma/prisma';
-import { PurchaseDetailsResult } from '@/types/subscription.types';
+import { PurchaseDetailsResult } from '@/types/purchase.types';
 
 export const getPurchaseActionDetails =
   async (): Promise<PurchaseDetailsResult> => {

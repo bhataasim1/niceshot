@@ -1,5 +1,5 @@
 import {
-  getCurrentUserWithSubscription,
+  getCurrentUserWithPurchase,
   getUserAction,
 } from '@/actions/user.actions';
 import { QUERY_KEYS } from '@/lib/query-keys';
@@ -12,10 +12,10 @@ export const useUser = () => {
   });
 };
 
-export const useCurrentUserWithSubscription = () => {
+export const useCurrentUserWithPurchase = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.CURRENT_USER_WITH_SUBSCRIPTION],
-    queryFn: getCurrentUserWithSubscription,
+    queryKey: [QUERY_KEYS.CURRENT_USER_WITH_PURCHASE],
+    queryFn: getCurrentUserWithPurchase,
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 10, // 10 minutes cache retention
     refetchOnWindowFocus: false, // Don't refetch on focus

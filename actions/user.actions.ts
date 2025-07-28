@@ -1,8 +1,8 @@
 'use server';
 
 import { getUser } from '@/lib/auth-utils';
-import { getSubscriptionActionDetails } from './subscription.action';
-import { SubscriptionDetailsResult } from '@/types/subscription.types';
+import { getPurchaseActionDetails } from './purchase.action';
+import { PurchaseDetailsResult } from '@/types/purchase.types';
 import { User } from '@/prisma/generated/prisma';
 
 export const getUserAction = async () => {
@@ -10,20 +10,20 @@ export const getUserAction = async () => {
   return user;
 };
 
-export const getCurrentUserWithSubscription = async (): Promise<{
+export const getCurrentUserWithPurchase = async (): Promise<{
   user: User | null;
-  subscription: SubscriptionDetailsResult;
+  purchase: PurchaseDetailsResult;
   isProUser: boolean;
 }> => {
   const user = await getUser();
   if (!user) {
     return {
       user: null,
-      subscription: { hasSubscription: false },
+      purchase: { hasPurchase: false },
       isProUser: false,
     };
   }
-  const subscription = await getSubscriptionActionDetails();
+  const purchase = await getPurchaseActionDetails();
 
-  return { user, subscription, isProUser: subscription.hasSubscription };
+  return { user, purchase, isProUser: purchase.hasPurchase };
 };

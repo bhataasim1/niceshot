@@ -1,4 +1,4 @@
-import { isProUser } from '@/actions/subscription.action';
+import { isProUser } from '@/actions/purchase.action';
 import { EditorPage } from '@/components/editor-page';
 import { redirect } from 'next/navigation';
 
