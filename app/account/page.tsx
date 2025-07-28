@@ -1,7 +1,7 @@
 'use client';
 
 import { UserCard } from '@/components/account/user-card';
-import { SubscriptionManager } from '@/components/subscription/subscription-manager';
+import { OrderManager } from '@/components/subscription/subscription-manager';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,13 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
+import { useCurrentUserWithOrder } from '@/hooks/tanstack-query/user.hooks';
 import { CreditCard, Settings, Shield } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AccountPage() {
-  const { data: userWithSubscription, isLoading } =
-    useCurrentUserWithSubscription();
+  const { data: userWithOrder, isLoading } = useCurrentUserWithOrder();
 
   return (
     <div className="container mx-auto px-4 py-8 font-mono">
@@ -24,22 +23,22 @@ export default function AccountPage() {
         <div>
           <h1 className="text-3xl font-bold mb-2">Account Settings</h1>
           <p className="text-muted-foreground">
-            Manage your account and subscription settings
+            Manage your account and Pro order settings
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
             <UserCard
-              user={userWithSubscription?.user || null}
+              user={userWithOrder?.user || null}
               isLoading={isLoading}
             />
           </div>
 
           <div className="md:col-span-2">
-            <SubscriptionManager
-              subscription={userWithSubscription?.subscription || null}
-              isProUser={userWithSubscription?.isProUser || false}
+            <OrderManager
+              order={userWithOrder?.order || null}
+              isProUser={userWithOrder?.isProUser || false}
               isLoading={isLoading}
             />
           </div>

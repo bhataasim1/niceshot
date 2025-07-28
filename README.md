@@ -252,7 +252,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [![Star History Chart](https://api.star-history.com/svg?repos=bhataasim1/niceshot&type=Date)](https://www.star-history.com/#bhataasim1/niceshot&Date)
 
-
 <div align="center">
   Made with ❤️ by <a href="https://x.com/BhatAasim9">Aasim Bhat</a>
 </div>

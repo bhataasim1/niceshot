@@ -26,7 +26,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
-  subscriptions Subscription[]
+  orders        Order[]
 
   @@map("user")
 }
@@ -78,32 +78,35 @@ model Verification {
   @@map("verification")
 }
 
-model Subscription {
-  id                          String     @id
-  createdAt                   DateTime
-  modifiedAt                  DateTime?
-  amount                      Int
-  currency                    String
-  recurringInterval           String
-  status                      String
-  currentPeriodStart          DateTime
-  currentPeriodEnd            DateTime
-  cancelAtPeriodEnd           Boolean    @default(false)
-  canceledAt                  DateTime?
-  startedAt                   DateTime
-  endsAt                      DateTime?
-  endedAt                     DateTime?
-  customerId                  String
-  productId                   String
-  discountId                 String?
-  checkoutId                  String
-  customerCancellationReason  String?
-  customerCancellationComment String?
-  metadata                    Json?
-  customFieldData             Json?
-  userId                      String?
+model Order {
+  id                    String     @id
+  createdAt             DateTime   @default(now())
+  modifiedAt            DateTime?
+  status                String     @default("pending") // pending, paid, failed, refunded
+  paid                  Boolean    @default(false)
+  subtotalAmount        Int
+  discountAmount        Int        @default(0)
+  netAmount             Int
+  amount                Int
+  taxAmount             Int        @default(0)
+  totalAmount           Int
+  refundedAmount        Int        @default(0)
+  refundedTaxAmount     Int        @default(0)
+  currency              String
+  billingReason         String     // purchase, subscription_create, subscription_cycle, subscription_update
+  billingName           String?
+  billingAddress        Json?
+  isInvoiceGenerated    Boolean    @default(false)
+  customerId            String
+  productId             String
+  discountId            String?
+  subscriptionId        String?
+  checkoutId            String
+  metadata              Json?
+  customFieldData       Json?
+  userId                String
 
-  user                        User?      @relation(fields: [userId], references: [id])
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("subscription")
+  @@map("order")
 }

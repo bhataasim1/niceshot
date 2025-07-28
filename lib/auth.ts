@@ -36,12 +36,10 @@ export const auth = betterAuth({
           secret: env.POLAR_WEBHOOK_SECRET,
           onPayload: async ({ data, type }) => {
             if (
-              type === 'subscription.created' ||
-              type === 'subscription.active' ||
-              type === 'subscription.canceled' ||
-              type === 'subscription.revoked' ||
-              type === 'subscription.uncanceled' ||
-              type === 'subscription.updated'
+              type === 'order.created' ||
+              type === 'order.paid' ||
+              type === 'order.updated' ||
+              type === 'order.refunded'
             ) {
               try {
                 const userId = data.customer.externalId;
@@ -60,31 +58,32 @@ export const auth = betterAuth({
                     throw new Error('User not found');
                   }
 
-                  const subscriptionData = {
+                  const orderData = {
                     id: data.id,
                     createdAt: new Date(data.createdAt),
                     modifiedAt: safeParseDate(data.modifiedAt),
-                    amount: data.amount,
-                    currency: data.currency,
-                    recurringInterval: data.recurringInterval,
                     status: data.status,
-                    currentPeriodStart:
-                      safeParseDate(data.currentPeriodStart) || new Date(),
-                    currentPeriodEnd:
-                      safeParseDate(data.currentPeriodEnd) || new Date(),
-                    cancelAtPeriodEnd: data.cancelAtPeriodEnd || false,
-                    canceledAt: safeParseDate(data.canceledAt),
-                    startedAt: safeParseDate(data.startedAt) || new Date(),
-                    endsAt: safeParseDate(data.endsAt),
-                    endedAt: safeParseDate(data.endedAt),
+                    paid: data.paid,
+                    subtotalAmount: data.subtotalAmount,
+                    discountAmount: data.discountAmount,
+                    netAmount: data.netAmount,
+                    amount: data.amount,
+                    taxAmount: data.taxAmount,
+                    totalAmount: data.totalAmount,
+                    refundedAmount: data.refundedAmount,
+                    refundedTaxAmount: data.refundedTaxAmount,
+                    currency: data.currency,
+                    billingReason: data.billingReason,
+                    billingName: data.billingName,
+                    billingAddress: data.billingAddress
+                      ? JSON.stringify(data.billingAddress)
+                      : null,
+                    isInvoiceGenerated: data.isInvoiceGenerated,
                     customerId: data.customerId,
                     productId: data.productId,
-                    discountId: data.discountId || null,
-                    checkoutId: data.checkoutId || '',
-                    customerCancellationReason:
-                      data.customerCancellationReason || null,
-                    customerCancellationComment:
-                      data.customerCancellationComment || null,
+                    discountId: data.discountId,
+                    subscriptionId: data.subscriptionId,
+                    checkoutId: data.checkoutId,
                     metadata: data.metadata
                       ? JSON.stringify(data.metadata)
                       : null,
@@ -94,26 +93,32 @@ export const auth = betterAuth({
                     userId: userId,
                   };
 
-                  await tx.subscription.upsert({
+                  await tx.order.upsert({
                     where: {
                       id: data.id,
                     },
                     update: {
-                      ...subscriptionData,
-                      metadata: subscriptionData.metadata
-                        ? JSON.parse(subscriptionData.metadata)
+                      ...orderData,
+                      billingAddress: orderData.billingAddress
+                        ? JSON.parse(orderData.billingAddress)
                         : null,
-                      customFieldData: subscriptionData.customFieldData
-                        ? JSON.parse(subscriptionData.customFieldData)
+                      metadata: orderData.metadata
+                        ? JSON.parse(orderData.metadata)
+                        : null,
+                      customFieldData: orderData.customFieldData
+                        ? JSON.parse(orderData.customFieldData)
                         : null,
                     },
                     create: {
-                      ...subscriptionData,
-                      metadata: subscriptionData.metadata
-                        ? JSON.parse(subscriptionData.metadata)
+                      ...orderData,
+                      billingAddress: orderData.billingAddress
+                        ? JSON.parse(orderData.billingAddress)
                         : null,
-                      customFieldData: subscriptionData.customFieldData
-                        ? JSON.parse(subscriptionData.customFieldData)
+                      metadata: orderData.metadata
+                        ? JSON.parse(orderData.metadata)
+                        : null,
+                      customFieldData: orderData.customFieldData
+                        ? JSON.parse(orderData.customFieldData)
                         : null,
                     },
                   });

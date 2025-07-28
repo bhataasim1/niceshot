@@ -2,7 +2,7 @@
 
 import { Confetti, ConfettiRef } from '@/components/confetti';
 import { Card, CardContent } from '@/components/ui/card';
-import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
+import { useCurrentUserWithOrder } from '@/hooks/tanstack-query/user.hooks';
 import { CheckCircle, Loader2Icon, Sparkles } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
@@ -27,15 +27,14 @@ const SuccessIcon = () => (
 );
 
 export default function SuccessPage() {
-  const { data: userWithSubscription, isLoading } =
-    useCurrentUserWithSubscription();
+  const { data: userWithOrder, isLoading } = useCurrentUserWithOrder();
   // const searchParams = useSearchParams();
   const router = useRouter();
   const [countdown, setCountdown] = useState(10);
   const confettiRef = useRef<ConfettiRef>(null);
 
   /**
-   * we need to verify the checkout id with the subscription id
+   * we need to verify the checkout id with the order id
    */
   // const checkout_id = searchParams.get('checkout_id');
 
@@ -106,8 +105,7 @@ export default function SuccessPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              Welcome to NiceShot Premium, {userWithSubscription?.user?.name}!
-              🎉
+              Welcome to NiceShot Pro, {userWithOrder?.user?.name}! 🎉
             </motion.p>
 
             <motion.div
@@ -117,8 +115,8 @@ export default function SuccessPage() {
               transition={{ delay: 0.8 }}
             >
               <p className="text-sm text-green-700">
-                Your subscription is now active. You have access to all premium
-                features!
+                Your Pro order is now complete. You have lifetime access to all
+                premium features!
               </p>
             </motion.div>
 

@@ -16,7 +16,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useCurrentUserWithSubscription } from '@/hooks/tanstack-query/user.hooks';
+import { useCurrentUserWithOrder } from '@/hooks/tanstack-query/user.hooks';
 import { useImageStore } from '@/lib/store';
 
 export default function EditorLayout({
@@ -26,8 +26,7 @@ export default function EditorLayout({
 }>) {
   const { imageName } = useImageStore();
 
-  const { data: userWithSubscription, isLoading } =
-    useCurrentUserWithSubscription();
+  const { data: userWithOrder, isLoading } = useCurrentUserWithOrder();
 
   return (
     <SidebarProvider className="font-mono">
@@ -57,8 +56,8 @@ export default function EditorLayout({
               <Skeleton className="size-8 rounded-full" />
             ) : (
               <NavUser
-                user={userWithSubscription?.user}
-                isProUser={userWithSubscription?.isProUser}
+                user={userWithOrder?.user}
+                isProUser={userWithOrder?.isProUser}
               />
             )}
           </div>

@@ -1,19 +1,17 @@
-export type SubscriptionDetails = {
+export type PurchaseDetails = {
   id: string;
   productId: string;
   status: string;
   amount: number;
   currency: string;
-  recurringInterval: string;
-  currentPeriodStart: Date;
-  currentPeriodEnd: Date;
-  cancelAtPeriodEnd: boolean;
-  canceledAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+  paymentMethod?: string | null;
 };
 
-export type SubscriptionDetailsResult = {
-  hasSubscription: boolean;
-  subscription?: SubscriptionDetails;
+export type PurchaseDetailsResult = {
+  hasPurchase: boolean;
+  purchase?: PurchaseDetails;
   error?: string;
-  errorType?: 'CANCELED' | 'EXPIRED' | 'GENERAL';
+  errorType?: 'FAILED' | 'REFUNDED' | 'GENERAL';
 };

@@ -4,9 +4,9 @@ const plans = [
   {
     id: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID || '',
     name: 'Pro',
-    price: 300,
+    price: 100,
     currency: 'USD',
-    interval: 'month',
+    interval: 'Lifetime',
     description: '',
     features: [
       'All Niceshot pro features',
@@ -38,10 +38,10 @@ export default async function PricingPage() {
         </h2>
         <div className="max-w-2xl mx-auto space-y-4 text-left">
           <div>
-            <h3 className="font-medium">Can I cancel anytime?</h3>
+            <h3 className="font-medium">Is this a one-time payment?</h3>
             <p className="text-muted-foreground">
-              Yes, you can cancel your subscription at any time. Your access
-              will continue until the end of your current billing period.
+              Yes, Pro is a one-time payment that gives you lifetime access to
+              all Pro features.
             </p>
           </div>
         </div>
