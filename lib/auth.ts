@@ -99,6 +99,7 @@ export const auth = betterAuth({
                     },
                     update: {
                       ...orderData,
+                      checkoutId: orderData.checkoutId as string,
                       billingAddress: orderData.billingAddress
                         ? JSON.parse(orderData.billingAddress)
                         : null,
@@ -111,6 +112,7 @@ export const auth = betterAuth({
                     },
                     create: {
                       ...orderData,
+                      checkoutId: orderData.checkoutId as string,
                       billingAddress: orderData.billingAddress
                         ? JSON.parse(orderData.billingAddress)
                         : null,
