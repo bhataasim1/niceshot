@@ -44,7 +44,7 @@ export const mockImages = [
     name: 'demo 9',
   },
   {
-    url: '/demo/demo10.png',
+    url: '/demo/demo10.jpg',
     name: 'demo 10',
   },
 ];
