@@ -39,4 +39,12 @@ export const mockImages = [
     url: '/demo/demo8.png',
     name: 'Aasim Bhat',
   },
+  {
+    url: '/demo/demo9.png',
+    name: 'demo 9',
+  },
+  {
+    url: '/demo/demo10.png',
+    name: 'demo 10',
+  },
 ];
