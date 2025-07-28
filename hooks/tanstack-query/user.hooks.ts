@@ -1,7 +1,4 @@
-import {
-  getCurrentUserWithPurchase,
-  getUserAction,
-} from '@/actions/user.actions';
+import { getCurrentUserWithOrder, getUserAction } from '@/actions/user.actions';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { useQuery } from '@tanstack/react-query';
 
@@ -12,10 +9,10 @@ export const useUser = () => {
   });
 };
 
-export const useCurrentUserWithPurchase = () => {
+export const useCurrentUserWithOrder = () => {
   return useQuery({
-    queryKey: [QUERY_KEYS.CURRENT_USER_WITH_PURCHASE],
-    queryFn: getCurrentUserWithPurchase,
+    queryKey: [QUERY_KEYS.CURRENT_USER_WITH_ORDER],
+    queryFn: getCurrentUserWithOrder,
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 10, // 10 minutes cache retention
     refetchOnWindowFocus: false, // Don't refetch on focus

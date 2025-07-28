@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { envClient } from '@/env/client';
-import { useCurrentUserWithPurchase } from '@/hooks/tanstack-query/user.hooks';
+import { useCurrentUserWithOrder } from '@/hooks/tanstack-query/user.hooks';
 import { authClient } from '@/lib/auth-client';
 import { formatCurrency } from '@/lib/format-currency';
 import { Check, Crown, Loader2, Star } from 'lucide-react';
@@ -33,13 +33,12 @@ interface PricingCardProps {
 
 export const PricingCard = ({ plan }: PricingCardProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [managePurchaseLoading, setManagePurchaseLoading] =
-    useState<boolean>(false);
-  const { data: userWithPurchase } = useCurrentUserWithPurchase();
+  const [manageOrderLoading, setManageOrderLoading] = useState<boolean>(false);
+  const { data: userWithOrder } = useCurrentUserWithOrder();
   const router = useRouter();
 
   const handlePurchase = async () => {
-    if (!userWithPurchase?.user) {
+    if (!userWithOrder?.user) {
       router.push('/sign-in');
       return;
     }
@@ -58,25 +57,25 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
     }
   };
 
-  const handleManagePurchase = async () => {
-    setManagePurchaseLoading(true);
+  const handleManageOrder = async () => {
+    setManageOrderLoading(true);
     try {
       await authClient.customer.portal({
         fetchOptions: {
           onError: () => {
-            toast.error('Failed to redirect to purchase portal');
+            toast.error('Failed to redirect to order portal');
           },
         },
       });
     } catch (error) {
       console.log(error);
-      toast.error('Failed to redirect to purchase portal');
+      toast.error('Failed to redirect to order portal');
     } finally {
-      setManagePurchaseLoading(false);
+      setManageOrderLoading(false);
     }
   };
 
-  const isProUser = userWithPurchase?.isProUser;
+  const isProUser = userWithOrder?.isProUser;
 
   return (
     <Card
@@ -116,15 +115,15 @@ export const PricingCard = ({ plan }: PricingCardProps) => {
         </ul>
 
         <Button
-          onClick={isProUser ? handleManagePurchase : handlePurchase}
+          onClick={isProUser ? handleManageOrder : handlePurchase}
           disabled={isLoading}
           className="w-full font-mono"
           variant={plan.popular ? 'default' : 'outline'}
         >
-          {isLoading || managePurchaseLoading ? (
+          {isLoading || manageOrderLoading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : isProUser ? (
-            'Manage Purchase'
+            'Manage Order'
           ) : (
             'Purchase Now'
           )}

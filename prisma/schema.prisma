@@ -26,7 +26,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
-  purchases     Purchase[]
+  orders        Order[]
 
   @@map("user")
 }
@@ -78,22 +78,35 @@ model Verification {
   @@map("verification")
 }
 
-model Purchase {
-  id              String     @id @default(cuid())
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  amount          Int
-  currency        String
-  status          String     @default("pending") // pending, completed, failed, refunded
-  productId       String
-  customerId      String
-  checkoutId      String
-  paymentMethod   String?
-  metadata        Json?
-  customFieldData Json?
-  userId          String
+model Order {
+  id                    String     @id
+  createdAt             DateTime   @default(now())
+  modifiedAt            DateTime?
+  status                String     @default("pending") // pending, paid, failed, refunded
+  paid                  Boolean    @default(false)
+  subtotalAmount        Int
+  discountAmount        Int        @default(0)
+  netAmount             Int
+  amount                Int
+  taxAmount             Int        @default(0)
+  totalAmount           Int
+  refundedAmount        Int        @default(0)
+  refundedTaxAmount     Int        @default(0)
+  currency              String
+  billingReason         String     // purchase, subscription_create, subscription_cycle, subscription_update
+  billingName           String?
+  billingAddress        Json?
+  isInvoiceGenerated    Boolean    @default(false)
+  customerId            String
+  productId             String
+  discountId            String?
+  subscriptionId        String?
+  checkoutId            String
+  metadata              Json?
+  customFieldData       Json?
+  userId                String
 
-  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("purchase")
+  @@map("order")
 }

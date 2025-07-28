@@ -36,11 +36,10 @@ export const auth = betterAuth({
           secret: env.POLAR_WEBHOOK_SECRET,
           onPayload: async ({ data, type }) => {
             if (
-              type === 'purchase.created' ||
-              type === 'purchase.completed' ||
-              type === 'purchase.failed' ||
-              type === 'purchase.refunded' ||
-              type === 'purchase.updated'
+              type === 'order.created' ||
+              type === 'order.paid' ||
+              type === 'order.updated' ||
+              type === 'order.refunded'
             ) {
               try {
                 const userId = data.customer.externalId;
@@ -59,17 +58,32 @@ export const auth = betterAuth({
                     throw new Error('User not found');
                   }
 
-                  const purchaseData = {
+                  const orderData = {
                     id: data.id,
                     createdAt: new Date(data.createdAt),
-                    updatedAt: new Date(),
-                    amount: data.amount,
-                    currency: data.currency,
+                    modifiedAt: safeParseDate(data.modifiedAt),
                     status: data.status,
-                    productId: data.productId,
+                    paid: data.paid,
+                    subtotalAmount: data.subtotalAmount,
+                    discountAmount: data.discountAmount,
+                    netAmount: data.netAmount,
+                    amount: data.amount,
+                    taxAmount: data.taxAmount,
+                    totalAmount: data.totalAmount,
+                    refundedAmount: data.refundedAmount,
+                    refundedTaxAmount: data.refundedTaxAmount,
+                    currency: data.currency,
+                    billingReason: data.billingReason,
+                    billingName: data.billingName,
+                    billingAddress: data.billingAddress
+                      ? JSON.stringify(data.billingAddress)
+                      : null,
+                    isInvoiceGenerated: data.isInvoiceGenerated,
                     customerId: data.customerId,
-                    checkoutId: data.checkoutId || '',
-                    paymentMethod: data.paymentMethod || null,
+                    productId: data.productId,
+                    discountId: data.discountId,
+                    subscriptionId: data.subscriptionId,
+                    checkoutId: data.checkoutId,
                     metadata: data.metadata
                       ? JSON.stringify(data.metadata)
                       : null,
@@ -79,26 +93,32 @@ export const auth = betterAuth({
                     userId: userId,
                   };
 
-                  await tx.purchase.upsert({
+                  await tx.order.upsert({
                     where: {
                       id: data.id,
                     },
                     update: {
-                      ...purchaseData,
-                      metadata: purchaseData.metadata
-                        ? JSON.parse(purchaseData.metadata)
+                      ...orderData,
+                      billingAddress: orderData.billingAddress
+                        ? JSON.parse(orderData.billingAddress)
                         : null,
-                      customFieldData: purchaseData.customFieldData
-                        ? JSON.parse(purchaseData.customFieldData)
+                      metadata: orderData.metadata
+                        ? JSON.parse(orderData.metadata)
+                        : null,
+                      customFieldData: orderData.customFieldData
+                        ? JSON.parse(orderData.customFieldData)
                         : null,
                     },
                     create: {
-                      ...purchaseData,
-                      metadata: purchaseData.metadata
-                        ? JSON.parse(purchaseData.metadata)
+                      ...orderData,
+                      billingAddress: orderData.billingAddress
+                        ? JSON.parse(orderData.billingAddress)
                         : null,
-                      customFieldData: purchaseData.customFieldData
-                        ? JSON.parse(purchaseData.customFieldData)
+                      metadata: orderData.metadata
+                        ? JSON.parse(orderData.metadata)
+                        : null,
+                      customFieldData: orderData.customFieldData
+                        ? JSON.parse(orderData.customFieldData)
                         : null,
                     },
                   });

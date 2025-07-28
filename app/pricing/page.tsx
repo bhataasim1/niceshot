@@ -44,13 +44,6 @@ export default async function PricingPage() {
               all Pro features.
             </p>
           </div>
-          <div>
-            <h3 className="font-medium">What if I&apos;m not satisfied?</h3>
-            <p className="text-muted-foreground">
-              We offer a 30-day money-back guarantee. If you&apos;re not
-              completely satisfied, contact us for a full refund.
-            </p>
-          </div>
         </div>
       </div>
     </div>

@@ -12,39 +12,39 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { authClient } from '@/lib/auth-client';
 import { formatCurrency } from '@/lib/format-currency';
-import { PurchaseDetailsResult } from '@/types/purchase.types';
+import { OrderDetailsResult } from '@/types/purchase.types';
 import { format } from 'date-fns';
 import { Calendar, Crown, ExternalLink, Loader2, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-type PurchaseManagerProps = {
-  purchase: PurchaseDetailsResult | null;
+type OrderManagerProps = {
+  order: OrderDetailsResult | null;
   isProUser: boolean;
   isLoading: boolean;
 };
 
-export const PurchaseManager = ({
-  purchase,
+export const OrderManager = ({
+  order,
   isProUser,
   isLoading,
-}: PurchaseManagerProps) => {
+}: OrderManagerProps) => {
   const [isManaging, setIsManaging] = useState(false);
 
-  const handleManagePurchase = async () => {
+  const handleManageOrder = async () => {
     setIsManaging(true);
     try {
       await authClient.customer.portal({
         fetchOptions: {
           onError: () => {
-            toast.error('Failed to open purchase portal');
+            toast.error('Failed to open order portal');
           },
         },
       });
     } catch (error) {
       console.log(error);
-      toast.error('Failed to open purchase portal');
+      toast.error('Failed to open order portal');
     } finally {
       setIsManaging(false);
     }
@@ -60,7 +60,7 @@ export const PurchaseManager = ({
     );
   }
 
-  if (!purchase || !isProUser) {
+  if (!order || !isProUser) {
     return (
       <Card>
         <CardHeader>
@@ -82,18 +82,17 @@ export const PurchaseManager = ({
     );
   }
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return <Badge variant="default">Active</Badge>;
-      case 'pending':
-        return <Badge variant="secondary">Pending</Badge>;
-      case 'failed':
-        return <Badge variant="destructive">Failed</Badge>;
-      case 'refunded':
-        return <Badge variant="secondary">Refunded</Badge>;
-      default:
-        return <Badge variant="outline">{status}</Badge>;
+  const getStatusBadge = (status: string, paid: boolean) => {
+    if (status === 'paid' && paid) {
+      return <Badge variant="default">Active</Badge>;
+    } else if (status === 'pending') {
+      return <Badge variant="secondary">Pending</Badge>;
+    } else if (status === 'failed') {
+      return <Badge variant="destructive">Failed</Badge>;
+    } else if (status === 'refunded') {
+      return <Badge variant="secondary">Refunded</Badge>;
+    } else {
+      return <Badge variant="outline">{status}</Badge>;
     }
   };
 
@@ -104,7 +103,7 @@ export const PurchaseManager = ({
           <Crown className="h-5 w-5" />
           Pro Access
         </CardTitle>
-        <CardDescription>Manage your Pro purchase and billing</CardDescription>
+        <CardDescription>Manage your Pro order and billing</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
@@ -112,13 +111,16 @@ export const PurchaseManager = ({
             <p className="font-medium">Pro Plan</p>
             <p className="text-sm text-muted-foreground">
               {formatCurrency(
-                purchase.purchase?.amount || 0,
-                purchase.purchase?.currency || 'USD'
+                order.order?.totalAmount || 0,
+                order.order?.currency || 'USD'
               )}{' '}
               (One-time payment)
             </p>
           </div>
-          {getStatusBadge(purchase.purchase?.status || 'inactive')}
+          {getStatusBadge(
+            order.order?.status || 'inactive',
+            order.order?.paid || false
+          )}
         </div>
 
         <Separator />
@@ -126,25 +128,37 @@ export const PurchaseManager = ({
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm">
             <Calendar className="h-4 w-4" />
-            <span>Purchased on:</span>
+            <span>Ordered on:</span>
             <span className="font-medium">
               {format(
-                new Date(purchase.purchase?.createdAt || new Date()),
+                new Date(order.order?.createdAt || new Date()),
                 'MMM d, yyyy'
               )}
             </span>
           </div>
 
-          {purchase.purchase?.paymentMethod && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Payment method: {purchase.purchase.paymentMethod}</span>
+          {order.order?.discountAmount && order.order.discountAmount > 0 && (
+            <div className="flex items-center gap-2 text-sm text-green-600">
+              <span>
+                Discount applied:{' '}
+                {formatCurrency(
+                  order.order.discountAmount,
+                  order.order.currency
+                )}
+              </span>
             </div>
           )}
 
-          {purchase.error && (
+          {order.order?.billingName && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Billing name: {order.order.billingName}</span>
+            </div>
+          )}
+
+          {order.error && (
             <div className="flex items-center gap-2 text-sm text-amber-600">
               <X className="h-4 w-4" />
-              <span>{purchase.error}</span>
+              <span>{order.error}</span>
             </div>
           )}
         </div>
@@ -153,7 +167,7 @@ export const PurchaseManager = ({
 
         <div className="flex gap-2">
           <Button
-            onClick={handleManagePurchase}
+            onClick={handleManageOrder}
             disabled={isManaging}
             variant="outline"
             className="flex-1"
