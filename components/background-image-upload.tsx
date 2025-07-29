@@ -26,16 +26,17 @@ export const BackgroundImageUpload = () => {
   };
 
   return (
-    <div className="space-y-2">
-      <p className="text-sm font-medium text-muted-foreground">Upload Image</p>
+    <div className="space-y-3">
+      <p className="text-sm font-medium text-muted-foreground">
+        Upload Background Image
+      </p>
       <Button
         variant="outline"
         size="sm"
         onClick={handleUploadClick}
-        className="w-full h-10"
+        className="w-full h-20 border-dashed border-2 border-muted-foreground rounded-md"
       >
-        <Upload className="size-4 mr-2" />
-        Upload Background Image
+        Upload here
       </Button>
       <input
         ref={fileInputRef}

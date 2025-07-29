@@ -3,7 +3,13 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { BackgroundType } from '@/constants/background-types';
 import { gradientColors } from '@/constants/gradient-colors';
 import { useImageStore } from '@/lib/store';
@@ -16,6 +22,7 @@ export const BackgroundPicker = () => {
   const { backgroundConfig, setBackgroundConfig, setBackgroundOpacity } =
     useImageStore();
   const [customImageUrl, setCustomImageUrl] = useState('');
+  const [selectedTab, setSelectedTab] = useState<BackgroundType>('gradient');
 
   const handleBackgroundChange = (type: BackgroundType, value: string) => {
     setBackgroundConfig({
@@ -35,44 +42,40 @@ export const BackgroundPicker = () => {
     }
   };
 
-  return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-2">
-        <p className="font-medium text-muted-foreground">Background</p>
-        <Tabs defaultValue="gradients" className="w-full">
-          <TabsList className="w-full h-10 border">
-            <TabsTrigger value="gradients">Gradients</TabsTrigger>
-            <TabsTrigger value="solids">Solid Colors</TabsTrigger>
-            <TabsTrigger value="images">Images</TabsTrigger>
-          </TabsList>
+  const handleTabChange = (value: string) => {
+    setSelectedTab(value as BackgroundType);
+  };
 
-          <TabsContent value="gradients" className="space-y-2">
-            <div className="grid grid-cols-3 gap-2">
-              {defaultBackgrounds.gradients.map((gradientKey) => (
-                <Button
-                  key={gradientKey}
-                  variant={
-                    backgroundConfig.type === 'gradient' &&
-                    backgroundConfig.value === gradientKey
-                      ? 'default'
-                      : 'outline'
-                  }
-                  size="sm"
-                  className="h-12 p-0"
-                  onClick={() =>
-                    handleBackgroundChange('gradient', gradientKey)
-                  }
-                >
-                  <div
-                    className="w-full h-full rounded"
-                    style={{ background: gradientColors[gradientKey] }}
-                  />
-                </Button>
-              ))}
-            </div>
-          </TabsContent>
+  const renderContent = () => {
+    switch (selectedTab) {
+      case 'gradient':
+        return (
+          <div className="grid grid-cols-3 gap-2">
+            {defaultBackgrounds.gradients.map((gradientKey) => (
+              <Button
+                key={gradientKey}
+                variant={
+                  backgroundConfig.type === 'gradient' &&
+                  backgroundConfig.value === gradientKey
+                    ? 'default'
+                    : 'outline'
+                }
+                size="sm"
+                className="h-12 p-0"
+                onClick={() => handleBackgroundChange('gradient', gradientKey)}
+              >
+                <div
+                  className="w-full h-full rounded"
+                  style={{ background: gradientColors[gradientKey] }}
+                />
+              </Button>
+            ))}
+          </div>
+        );
 
-          <TabsContent value="solids" className="space-y-4">
+      case 'solid':
+        return (
+          <div className="space-y-4">
             <div className="grid grid-cols-4 gap-2">
               {defaultBackgrounds.solids.map((colorKey) => (
                 <Button
@@ -94,11 +97,12 @@ export const BackgroundPicker = () => {
                 </Button>
               ))}
             </div>
-          </TabsContent>
+          </div>
+        );
 
-          <TabsContent value="images" className="space-y-4">
-            <BackgroundImageUpload />
-
+      case 'image':
+        return (
+          <div className="space-y-4">
             <div className="grid grid-cols-2 gap-2">
               {defaultBackgrounds.images.map((imageUrl, index) => (
                 <Button
@@ -122,6 +126,8 @@ export const BackgroundPicker = () => {
               ))}
             </div>
 
+            <BackgroundImageUpload />
+
             <div className="space-y-2">
               <p className="text-sm font-medium text-muted-foreground">
                 Custom Image URL
@@ -138,8 +144,31 @@ export const BackgroundPicker = () => {
                 </Button>
               </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-col gap-2">
+        <p className="font-medium text-muted-foreground">Background</p>
+
+        <Select value={selectedTab} onValueChange={handleTabChange}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select background type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="gradient">Gradients</SelectItem>
+            <SelectItem value="solid">Solid Colors</SelectItem>
+            <SelectItem value="image">Images</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <div className="mt-4">{renderContent()}</div>
       </div>
 
       <div className="space-y-2">
