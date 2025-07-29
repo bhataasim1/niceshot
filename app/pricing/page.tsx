@@ -4,7 +4,7 @@ const plans = [
   {
     id: process.env.NEXT_PUBLIC_POLAR_PRODUCT_PRO_ID || '',
     name: 'Pro',
-    price: 100,
+    price: 299,
     currency: 'USD',
     interval: 'Lifetime',
     description: '',
