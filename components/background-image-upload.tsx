@@ -1,9 +1,8 @@
 'use client';
 
-import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { useImageStore } from '@/lib/store';
-import { Upload } from 'lucide-react';
+import { useRef } from 'react';
 
 export const BackgroundImageUpload = () => {
   const { setBackgroundConfig, backgroundConfig } = useImageStore();

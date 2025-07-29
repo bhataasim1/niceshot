@@ -40,21 +40,48 @@ EditorPage
 
 1. **Gradients**: 13 pre-defined gradient options
 2. **Solid Colors**: 20 pre-defined colors + custom color picker
-3. **Images**: Pre-loaded demo images + custom image upload + URL input
+3. **Images**: Categorized image collections with accordion interface
+
+### Image Categories
+
+The image background system is organized into categories:
+
+- **Mesh**: Geometric mesh patterns (8 images)
+- **Mac Wallpapers**: Apple macOS wallpapers (6 images)
+- **Lo-Fi**: Chill lo-fi aesthetic backgrounds (5 images)
+- **Abstract**: Modern abstract designs (6 images)
+- **Nature**: Natural landscapes and scenes (4 images)
+- **Minimal**: Clean minimal designs (4 images)
 
 ### Background Components
 
-- **BackgroundPicker**: Main component with tabs for each background type
+- **BackgroundPicker**: Main component with Select dropdown for background type
+- **ImageCategoryAccordion**: Collapsible category component with preview images
 - **ColorPicker**: Custom color selection with hex input
 - **BackgroundImageUpload**: File upload for custom background images
 
 ### Features
 
+- **Categorized Images**: Organized image collections with preview thumbnails
+- **Accordion Interface**: Click to expand categories and see all images
+- **Visual Selection**: Selected categories and images are highlighted
 - **Opacity Control**: Slider to adjust background opacity (0-100%)
 - **Custom Colors**: Color picker with hex input for any color
 - **Image Upload**: Drag & drop or file picker for custom images
 - **URL Input**: Direct URL input for external images
 - **Pre-defined Options**: Curated selection of gradients, colors, and images
+
+### Image Category Structure
+
+```typescript
+interface ImageCategory {
+  id: string;
+  name: string;
+  description: string;
+  previewImages: string[]; // 2 preview images shown in header
+  allImages: string[]; // All images in the category
+}
+```
 
 ## Adding New Features
 
@@ -86,6 +113,23 @@ EditorPage
 </BackgroundComponent>
 ```
 
+### 4. Adding New Image Categories
+
+```typescript
+// In constants/image-backgrounds.ts
+{
+  id: 'new-category',
+  name: 'New Category',
+  description: 'Description of the category',
+  previewImages: ['/path/to/preview1.jpg', '/path/to/preview2.jpg'],
+  allImages: [
+    '/path/to/image1.jpg',
+    '/path/to/image2.jpg',
+    // ... more images
+  ],
+}
+```
+
 ## Benefits of This Structure
 
 1. **Separation of Concerns**: Background styling is separate from content rendering
@@ -94,6 +138,8 @@ EditorPage
 4. **Maintainability**: Each component has a single responsibility
 5. **Testability**: Components can be tested in isolation
 6. **Flexibility**: Multiple background types with unified interface
+7. **Organization**: Images are categorized for better discoverability
+8. **User Experience**: Accordion interface makes browsing efficient
 
 ## State Management
 

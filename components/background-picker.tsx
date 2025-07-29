@@ -16,7 +16,11 @@ import { useImageStore } from '@/lib/store';
 import { useState } from 'react';
 import { BackgroundImageUpload } from './background-image-upload';
 import { solidColors } from '@/constants/solid-colors';
-import { defaultBackgrounds } from '@/constants/image-backgrounds';
+import {
+  defaultBackgrounds,
+  imageCategories,
+} from '@/constants/image-backgrounds';
+import { ImageCategoryAccordion } from './image-category-accordion';
 
 export const BackgroundPicker = () => {
   const { backgroundConfig, setBackgroundConfig, setBackgroundOpacity } =
@@ -103,30 +107,13 @@ export const BackgroundPicker = () => {
       case 'image':
         return (
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-2">
-              {defaultBackgrounds.images.map((imageUrl, index) => (
-                <Button
-                  key={index}
-                  variant={
-                    backgroundConfig.type === 'image' &&
-                    backgroundConfig.value === imageUrl
-                      ? 'default'
-                      : 'outline'
-                  }
-                  size="sm"
-                  className="h-16 p-0 overflow-hidden"
-                  onClick={() => handleBackgroundChange('image', imageUrl)}
-                >
-                  <img
-                    src={imageUrl}
-                    alt={`Background ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </Button>
+            <BackgroundImageUpload />
+
+            <div className="space-y-3">
+              {imageCategories.map((category) => (
+                <ImageCategoryAccordion key={category.id} category={category} />
               ))}
             </div>
-
-            <BackgroundImageUpload />
 
             <div className="space-y-2">
               <p className="text-sm font-medium text-muted-foreground">
