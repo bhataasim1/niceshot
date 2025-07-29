@@ -18,9 +18,10 @@ EditorPage
 
 ### BackgroundComponent
 
-- Handles gradient backgrounds and aspect ratio
+- Handles gradient backgrounds, solid colors, and images
 - Provides the main container with styling
 - Accepts `imageUrl` and `children` props
+- Supports opacity control for all background types
 
 ### ImageRenderComponent
 
@@ -32,6 +33,28 @@ EditorPage
 - Manages different types of content within the background
 - Can handle images, text overlays, filters, etc.
 - Makes it easy to add new content types
+
+## Background System
+
+### Supported Background Types
+
+1. **Gradients**: 13 pre-defined gradient options
+2. **Solid Colors**: 20 pre-defined colors + custom color picker
+3. **Images**: Pre-loaded demo images + custom image upload + URL input
+
+### Background Components
+
+- **BackgroundPicker**: Main component with tabs for each background type
+- **ColorPicker**: Custom color selection with hex input
+- **BackgroundImageUpload**: File upload for custom background images
+
+### Features
+
+- **Opacity Control**: Slider to adjust background opacity (0-100%)
+- **Custom Colors**: Color picker with hex input for any color
+- **Image Upload**: Drag & drop or file picker for custom images
+- **URL Input**: Direct URL input for external images
+- **Pre-defined Options**: Curated selection of gradients, colors, and images
 
 ## Adding New Features
 
@@ -70,14 +93,25 @@ EditorPage
 3. **Extensibility**: Easy to add new features without modifying existing code
 4. **Maintainability**: Each component has a single responsibility
 5. **Testability**: Components can be tested in isolation
+6. **Flexibility**: Multiple background types with unified interface
 
 ## State Management
 
 The `useImageStore` hook manages:
 
 - Image upload and display
-- Gradient selection
+- Background configuration (type, value, opacity)
 - Border radius
 - Aspect ratio
+
+### Background Configuration
+
+```typescript
+interface BackgroundConfig {
+  type: 'gradient' | 'solid' | 'image';
+  value: string; // gradient key, color key, or image URL
+  opacity: number; // 0-1
+}
+```
 
 New features can add their own state or extend the existing store as needed.

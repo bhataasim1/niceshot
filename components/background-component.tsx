@@ -1,5 +1,5 @@
 import { aspectRatios } from '@/constants/aspect-ratios';
-import { gradientColors } from '@/constants/gradient-colors';
+import { getBackgroundCSS } from '@/constants/background-types';
 import { useImageStore } from '@/lib/store';
 import { ContentContainer } from './content-container';
 
@@ -12,7 +12,11 @@ export const BackgroundComponent = ({
   imageUrl,
   children,
 }: BackgroundComponentProps) => {
-  const { selectedGradient, selectedAspectRatio } = useImageStore();
+  const { backgroundConfig, selectedAspectRatio } = useImageStore();
+
+  const backgroundStyle = getBackgroundCSS(backgroundConfig);
+  const aspectRatio =
+    aspectRatios.find((ar) => ar.id === selectedAspectRatio)?.ratio || 1;
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -21,10 +25,8 @@ export const BackgroundComponent = ({
           id="image-render-card"
           className="rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center p-8"
           style={{
-            background: gradientColors[selectedGradient],
-            aspectRatio:
-              aspectRatios.find((ar) => ar.id === selectedAspectRatio)?.ratio ||
-              1,
+            ...backgroundStyle,
+            aspectRatio,
             maxHeight: '80vh',
           }}
         >
