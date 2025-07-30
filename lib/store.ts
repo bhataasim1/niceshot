@@ -21,6 +21,8 @@ interface ImageState {
   setBackgroundValue: (value: string) => void;
   setBackgroundOpacity: (opacity: number) => void;
   exportImage: () => Promise<void>;
+  imageOpacity: number;
+  setImageOpacity: (opacity: number) => void;
 }
 
 export const useImageStore = create<ImageState>((set, get) => ({
@@ -33,6 +35,11 @@ export const useImageStore = create<ImageState>((set, get) => ({
     type: 'gradient',
     value: 'primary_gradient',
     opacity: 1,
+  },
+  
+  imageOpacity: 1,
+  setImageOpacity: (opacity: number) => {
+    set({ imageOpacity: opacity });
   },
 
   setImage: (file: File) => {

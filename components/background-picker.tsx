@@ -23,7 +23,7 @@ import {
 import { ImageCategoryAccordion } from './image-category-accordion';
 
 export const BackgroundPicker = () => {
-  const { backgroundConfig, setBackgroundConfig, setBackgroundOpacity } =
+  const { backgroundConfig, setBackgroundConfig, imageOpacity, setImageOpacity } =
     useImageStore();
   const [customImageUrl, setCustomImageUrl] = useState('');
   const [selectedTab, setSelectedTab] = useState<BackgroundType>('gradient');
@@ -37,7 +37,7 @@ export const BackgroundPicker = () => {
   };
 
   const handleOpacityChange = (opacity: number[]) => {
-    setBackgroundOpacity(opacity[0]);
+    setImageOpacity(opacity[0]);
   };
 
   const handleCustomImageUpload = () => {
@@ -162,11 +162,11 @@ export const BackgroundPicker = () => {
         <div className="flex justify-between">
           <p className="text-sm font-medium text-muted-foreground">Opacity</p>
           <span className="text-sm text-muted-foreground">
-            {Math.round((backgroundConfig.opacity || 1) * 100)}%
+            {Math.round(imageOpacity * 100)}%
           </span>
         </div>
         <Slider
-          value={[backgroundConfig.opacity || 1]}
+          value={[imageOpacity]}
           onValueChange={handleOpacityChange}
           max={1}
           min={0}
