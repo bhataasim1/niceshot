@@ -9,6 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
@@ -16,17 +17,27 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { useCurrentUserWithOrder } from '@/hooks/tanstack-query/user.hooks';
 import { useImageStore } from '@/lib/store';
+import { Trash2, X } from 'lucide-react';
 
 export default function EditorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { imageName } = useImageStore();
+  const { imageName, clearImage } = useImageStore();
 
   const { data: userWithOrder, isLoading } = useCurrentUserWithOrder();
+
+  const handleDeleteImage = () => {
+    clearImage();
+  };
 
   return (
     <SidebarProvider className="font-mono">
@@ -43,9 +54,28 @@ export default function EditorLayout({
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage className="line-clamp-1">
-                    {imageName || 'No image uploaded'}
-                  </BreadcrumbPage>
+                  <div className="flex items-center gap-2">
+                    <BreadcrumbPage className="line-clamp-1">
+                      {imageName || 'No image uploaded'}
+                    </BreadcrumbPage>
+                    {imageName && (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="destructive"
+                            size="icon"
+                            className="size-7"
+                            onClick={handleDeleteImage}
+                          >
+                            <Trash2 className="size-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Delete image and upload new one</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    )}
+                  </div>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
