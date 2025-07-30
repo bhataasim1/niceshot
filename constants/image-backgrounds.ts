@@ -84,6 +84,18 @@ export const imageCategories: ImageCategory[] = [
       '/radiant/radiant10.jpg',
     ],
   },
+  {
+    id: 'pattern',
+    name: 'Pattern',
+    description: 'Pattern backgrounds',
+    previewImages: [],
+    allImages: [
+      '/pattern/pattern1.png',
+      '/pattern/pattern2.png',
+      '/pattern/pattern3.webp',
+      '/pattern/pattern4.png',
+    ],
+  },
 ];
 
 export const defaultBackgrounds = {
