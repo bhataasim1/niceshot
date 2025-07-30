@@ -43,7 +43,7 @@ export const BorderRadiusPicker = () => {
             max={50}
             min={0}
             step={1}
-            className="w-full cursor-pointer"
+            className="w-full cursor-grab"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
             {[0, 25, 50].map((value) => (

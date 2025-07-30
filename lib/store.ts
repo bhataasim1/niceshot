@@ -4,6 +4,17 @@ import { GradientKey } from '@/constants/gradient-colors';
 import { AspectRatioKey } from '@/constants/aspect-ratios';
 import { BackgroundConfig, BackgroundType } from '@/constants/background-types';
 
+interface TextOverlay {
+  id: string;
+  text: string;
+  position: { x: number; y: number };
+  fontSize: number;
+  fontWeight: string;
+  color: string;
+  opacity: number;
+  isVisible: boolean;
+}
+
 interface ImageState {
   uploadedImageUrl: string | null;
   imageName: string | null;
@@ -11,6 +22,7 @@ interface ImageState {
   borderRadius: number;
   selectedAspectRatio: AspectRatioKey;
   backgroundConfig: BackgroundConfig;
+  textOverlays: TextOverlay[];
   setImage: (file: File) => void;
   clearImage: () => void;
   setGradient: (gradient: GradientKey) => void;
@@ -20,9 +32,13 @@ interface ImageState {
   setBackgroundType: (type: BackgroundType) => void;
   setBackgroundValue: (value: string) => void;
   setBackgroundOpacity: (opacity: number) => void;
+  addTextOverlay: (overlay: Omit<TextOverlay, 'id'>) => void;
+  updateTextOverlay: (id: string, updates: Partial<TextOverlay>) => void;
+  removeTextOverlay: (id: string) => void;
+  clearTextOverlays: () => void;
   exportImage: () => Promise<void>;
-  imageOpacity: number;
   setImageOpacity: (opacity: number) => void;
+  imageOpacity: number;
 }
 
 export const useImageStore = create<ImageState>((set, get) => ({
@@ -36,6 +52,7 @@ export const useImageStore = create<ImageState>((set, get) => ({
     value: 'primary_gradient',
     opacity: 1,
   },
+  textOverlays: [],
 
   imageOpacity: 1,
   setImageOpacity: (opacity: number) => {
@@ -105,6 +122,31 @@ export const useImageStore = create<ImageState>((set, get) => ({
         opacity,
       },
     });
+  },
+
+  addTextOverlay: (overlay) => {
+    const id = `text-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    set((state) => ({
+      textOverlays: [...state.textOverlays, { ...overlay, id }],
+    }));
+  },
+
+  updateTextOverlay: (id, updates) => {
+    set((state) => ({
+      textOverlays: state.textOverlays.map((overlay) =>
+        overlay.id === id ? { ...overlay, ...updates } : overlay
+      ),
+    }));
+  },
+
+  removeTextOverlay: (id) => {
+    set((state) => ({
+      textOverlays: state.textOverlays.filter((overlay) => overlay.id !== id),
+    }));
+  },
+
+  clearTextOverlays: () => {
+    set({ textOverlays: [] });
   },
 
   exportImage: async () => {

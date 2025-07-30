@@ -36,7 +36,7 @@ export const MockupTab = () => {
           max={1}
           min={0}
           step={0.01}
-          className="w-full cursor-pointer"
+          className="w-full cursor-grab"
         />
       </div>
     </div>
