@@ -161,23 +161,6 @@ export const BackgroundPicker = () => {
 
         <div className="mt-4">{renderContent()}</div>
       </div>
-
-      <div className="space-y-2 mb-4">
-        <div className="flex justify-between">
-          <p className="text-sm font-medium text-muted-foreground">Opacity</p>
-          <span className="text-sm text-muted-foreground">
-            {Math.round(imageOpacity * 100)}%
-          </span>
-        </div>
-        <Slider
-          value={[imageOpacity]}
-          onValueChange={handleOpacityChange}
-          max={1}
-          min={0}
-          step={0.01}
-          className="w-full cursor-pointer"
-        />
-      </div>
     </div>
   );
 };
