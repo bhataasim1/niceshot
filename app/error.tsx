@@ -7,7 +7,13 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, RefreshCw } from 'lucide-react';
 
-export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
@@ -36,17 +42,25 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           Something went wrong
         </h1>
         <p className="text-lg mb-8 text-neutral-600 dark:text-neutral-300">
-          An error occurred while trying to load this page. Please try again later.
+          An error occurred while trying to load this page. Please try again
+          later.
         </p>
 
         <div className="flex justify-center gap-4">
-          <Button variant="default" className="flex items-center gap-2 px-4 py-2 rounded-full" onClick={reset}>
+          <Button
+            variant="default"
+            className="flex items-center gap-2 px-4 py-2 rounded-full"
+            onClick={reset}
+          >
             <RefreshCw size={18} />
             <span>Try again</span>
           </Button>
 
           <Link href="/">
-            <Button variant="outline" className="flex items-center gap-2 px-4 py-2 rounded-full">
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 px-4 py-2 rounded-full"
+            >
               <ArrowLeft size={18} />
               <span>Return to home</span>
             </Button>
