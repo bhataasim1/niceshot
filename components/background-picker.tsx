@@ -158,7 +158,7 @@ export const BackgroundPicker = () => {
         <div className="mt-4">{renderContent()}</div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 mb-4">
         <div className="flex justify-between">
           <p className="text-sm font-medium text-muted-foreground">Opacity</p>
           <span className="text-sm text-muted-foreground">
@@ -171,7 +171,7 @@ export const BackgroundPicker = () => {
           max={1}
           min={0}
           step={0.01}
-          className="w-full"
+          className="w-full cursor-pointer"
         />
       </div>
     </div>
