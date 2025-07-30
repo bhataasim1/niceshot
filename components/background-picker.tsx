@@ -23,8 +23,12 @@ import {
 import { ImageCategoryAccordion } from './image-category-accordion';
 
 export const BackgroundPicker = () => {
-  const { backgroundConfig, setBackgroundConfig, imageOpacity, setImageOpacity } =
-    useImageStore();
+  const {
+    backgroundConfig,
+    setBackgroundConfig,
+    imageOpacity,
+    setImageOpacity,
+  } = useImageStore();
   const [customImageUrl, setCustomImageUrl] = useState('');
   const [selectedTab, setSelectedTab] = useState<BackgroundType>('gradient');
 

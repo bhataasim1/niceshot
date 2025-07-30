@@ -36,7 +36,7 @@ export const useImageStore = create<ImageState>((set, get) => ({
     value: 'primary_gradient',
     opacity: 1,
   },
-  
+
   imageOpacity: 1,
   setImageOpacity: (opacity: number) => {
     set({ imageOpacity: opacity });
