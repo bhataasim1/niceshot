@@ -10,6 +10,7 @@ interface TextOverlay {
   position: { x: number; y: number };
   fontSize: number;
   fontWeight: string;
+  fontFamily: string;
   color: string;
   opacity: number;
   isVisible: boolean;
@@ -23,6 +24,7 @@ interface ImageState {
   selectedAspectRatio: AspectRatioKey;
   backgroundConfig: BackgroundConfig;
   textOverlays: TextOverlay[];
+  imageOpacity: number;
   setImage: (file: File) => void;
   clearImage: () => void;
   setGradient: (gradient: GradientKey) => void;
@@ -36,9 +38,8 @@ interface ImageState {
   updateTextOverlay: (id: string, updates: Partial<TextOverlay>) => void;
   removeTextOverlay: (id: string) => void;
   clearTextOverlays: () => void;
-  exportImage: () => Promise<void>;
   setImageOpacity: (opacity: number) => void;
-  imageOpacity: number;
+  exportImage: () => Promise<void>;
 }
 
 export const useImageStore = create<ImageState>((set, get) => ({
@@ -53,11 +54,7 @@ export const useImageStore = create<ImageState>((set, get) => ({
     opacity: 1,
   },
   textOverlays: [],
-
   imageOpacity: 1,
-  setImageOpacity: (opacity: number) => {
-    set({ imageOpacity: opacity });
-  },
 
   setImage: (file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -147,6 +144,10 @@ export const useImageStore = create<ImageState>((set, get) => ({
 
   clearTextOverlays: () => {
     set({ textOverlays: [] });
+  },
+
+  setImageOpacity: (opacity: number) => {
+    set({ imageOpacity: opacity });
   },
 
   exportImage: async () => {

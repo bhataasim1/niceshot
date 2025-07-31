@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/select';
 import { useImageStore } from '@/lib/store';
 import { Plus, Trash2, Eye, EyeOff } from 'lucide-react';
+import { fontFamilies } from '@/constants/fonts';
 
 export const TextOverlayControls = () => {
   const {
@@ -39,6 +40,7 @@ export const TextOverlayControls = () => {
         position: { x: 50, y: 50 },
         fontSize: 24,
         fontWeight: 'normal',
+        fontFamily: 'system',
         color: '#ffffff',
         opacity: 1,
         isVisible: true,
@@ -89,6 +91,12 @@ export const TextOverlayControls = () => {
   const handleUpdateFontWeight = (weight: string) => {
     if (selectedOverlay) {
       updateTextOverlay(selectedOverlay.id, { fontWeight: weight });
+    }
+  };
+
+  const handleUpdateFontFamily = (fontFamily: string) => {
+    if (selectedOverlay) {
+      updateTextOverlay(selectedOverlay.id, { fontFamily });
     }
   };
 
@@ -209,6 +217,22 @@ export const TextOverlayControls = () => {
             </div>
 
             <Select
+              value={selectedOverlay.fontFamily}
+              onValueChange={handleUpdateFontFamily}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Font family" />
+              </SelectTrigger>
+              <SelectContent>
+                {fontFamilies.map((font) => (
+                  <SelectItem key={font.id} value={font.id}>
+                    {font.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
               value={selectedOverlay.fontWeight}
               onValueChange={handleUpdateFontWeight}
             >
@@ -216,7 +240,6 @@ export const TextOverlayControls = () => {
                 <SelectValue placeholder="Font weight" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="normal">Normal</SelectItem>
                 <SelectItem value="100">Thin</SelectItem>
                 <SelectItem value="300">Light</SelectItem>
                 <SelectItem value="500">Medium</SelectItem>
