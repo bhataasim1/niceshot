@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select';
 import { useImageStore } from '@/lib/store';
 import { Plus, Trash2, Eye, EyeOff } from 'lucide-react';
-import { fontFamilies } from '@/constants/fonts';
+import { fontFamilies, getAvailableFontWeights } from '@/constants/fonts';
 
 export const TextOverlayControls = () => {
   const {
@@ -35,12 +35,15 @@ export const TextOverlayControls = () => {
 
   const handleAddText = () => {
     if (newText.trim()) {
+      const defaultFont = 'system';
+      const availableWeights = getAvailableFontWeights(defaultFont);
+
       addTextOverlay({
         text: newText.trim(),
         position: { x: 50, y: 50 },
         fontSize: 24,
-        fontWeight: 'normal',
-        fontFamily: 'system',
+        fontWeight: availableWeights[0] || 'normal',
+        fontFamily: defaultFont,
         color: '#ffffff',
         opacity: 1,
         isVisible: true,
@@ -104,7 +107,18 @@ export const TextOverlayControls = () => {
 
   const handleUpdateFontFamily = (fontFamily: string) => {
     if (selectedOverlay) {
-      updateTextOverlay(selectedOverlay.id, { fontFamily });
+      const availableWeights = getAvailableFontWeights(fontFamily);
+      const currentWeight = selectedOverlay.fontWeight;
+
+      // If the current weight is not available for the new font, default to the first available weight
+      const newWeight = availableWeights.includes(currentWeight)
+        ? currentWeight
+        : availableWeights[0] || 'normal';
+
+      updateTextOverlay(selectedOverlay.id, {
+        fontFamily,
+        fontWeight: newWeight,
+      });
     }
   };
 
@@ -273,14 +287,41 @@ export const TextOverlayControls = () => {
                 <SelectValue placeholder="Font weight" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="normal">Normal</SelectItem>
-                <SelectItem value="100">Thin</SelectItem>
-                <SelectItem value="300">Light</SelectItem>
-                <SelectItem value="500">Medium</SelectItem>
-                <SelectItem value="700">Bold</SelectItem>
-                <SelectItem value="800">Extra Bold</SelectItem>
+                {getAvailableFontWeights(selectedOverlay.fontFamily).map(
+                  (weight) => (
+                    <SelectItem key={weight} value={weight}>
+                      {weight === 'normal'
+                        ? 'Normal'
+                        : weight === 'bold'
+                          ? 'Bold'
+                          : weight === '100'
+                            ? 'Thin (100)'
+                            : weight === '300'
+                              ? 'Light (300)'
+                              : weight === '500'
+                                ? 'Medium (500)'
+                                : weight === '600'
+                                  ? 'Semi Bold (600)'
+                                  : weight === '700'
+                                    ? 'Bold (700)'
+                                    : weight === '800'
+                                      ? 'Extra Bold (800)'
+                                      : weight === '900'
+                                        ? 'Black (900)'
+                                        : weight}
+                    </SelectItem>
+                  )
+                )}
               </SelectContent>
             </Select>
+            <p className="text-xs text-muted-foreground">
+              {getAvailableFontWeights(selectedOverlay.fontFamily).length}{' '}
+              weight
+              {getAvailableFontWeights(selectedOverlay.fontFamily).length !== 1
+                ? 's'
+                : ''}{' '}
+              available
+            </p>
 
             <Select
               value={selectedOverlay.orientation}
@@ -305,7 +346,7 @@ export const TextOverlayControls = () => {
               <Slider
                 value={[selectedOverlay.fontSize]}
                 onValueChange={handleUpdateFontSize}
-                max={72}
+                max={150}
                 min={12}
                 step={1}
                 className="w-full cursor-grab"
