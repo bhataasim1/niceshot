@@ -70,77 +70,7 @@ export const fontFamilies: FontFamily[] = [
     fallback: 'Trebuchet MS, Geneva, sans-serif',
   },
 
-  // Custom fonts (TTF files)
-  {
-    id: 'inter',
-    name: 'Inter',
-    category: 'custom',
-    file: '/fonts/Inter-Regular.ttf',
-    fallback: 'Inter, system-ui, sans-serif',
-  },
-  {
-    id: 'poppins',
-    name: 'Poppins',
-    category: 'custom',
-    file: '/fonts/Poppins-Regular.ttf',
-    fallback: 'Poppins, system-ui, sans-serif',
-  },
-  {
-    id: 'roboto',
-    name: 'Roboto',
-    category: 'custom',
-    file: '/fonts/Roboto-Regular.ttf',
-    fallback: 'Roboto, system-ui, sans-serif',
-  },
-  {
-    id: 'opensans',
-    name: 'Open Sans',
-    category: 'custom',
-    file: '/fonts/OpenSans-Regular.ttf',
-    fallback: 'Open Sans, system-ui, sans-serif',
-  },
-  {
-    id: 'montserrat',
-    name: 'Montserrat',
-    category: 'custom',
-    file: '/fonts/Montserrat-Regular.ttf',
-    fallback: 'Montserrat, system-ui, sans-serif',
-  },
-  {
-    id: 'raleway',
-    name: 'Raleway',
-    category: 'custom',
-    file: '/fonts/Raleway-Regular.ttf',
-    fallback: 'Raleway, system-ui, sans-serif',
-  },
-  {
-    id: 'lato',
-    name: 'Lato',
-    category: 'custom',
-    file: '/fonts/Lato-Regular.ttf',
-    fallback: 'Lato, system-ui, sans-serif',
-  },
-  {
-    id: 'nunito',
-    name: 'Nunito',
-    category: 'custom',
-    file: '/fonts/Nunito-Regular.ttf',
-    fallback: 'Nunito, system-ui, sans-serif',
-  },
-  {
-    id: 'quicksand',
-    name: 'Quicksand',
-    category: 'custom',
-    file: '/fonts/Quicksand-Regular.ttf',
-    fallback: 'Quicksand, system-ui, sans-serif',
-  },
-  {
-    id: 'ubuntu',
-    name: 'Ubuntu',
-    category: 'custom',
-    file: '/fonts/Ubuntu-Regular.ttf',
-    fallback: 'Ubuntu, system-ui, sans-serif',
-  },
+  // we will add custom fonts here
 ];
 
 export const getFontFamily = (id: string): FontFamily | undefined => {
