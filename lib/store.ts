@@ -4,6 +4,28 @@ import { GradientKey } from '@/constants/gradient-colors';
 import { AspectRatioKey } from '@/constants/aspect-ratios';
 import { BackgroundConfig, BackgroundType } from '@/constants/background-types';
 
+interface TextShadow {
+  enabled: boolean;
+  color: string;
+  blur: number;
+  offsetX: number;
+  offsetY: number;
+}
+
+interface TextOverlay {
+  id: string;
+  text: string;
+  position: { x: number; y: number };
+  fontSize: number;
+  fontWeight: string;
+  fontFamily: string;
+  color: string;
+  opacity: number;
+  isVisible: boolean;
+  orientation: 'horizontal' | 'vertical';
+  textShadow: TextShadow;
+}
+
 interface ImageState {
   uploadedImageUrl: string | null;
   imageName: string | null;
@@ -11,6 +33,8 @@ interface ImageState {
   borderRadius: number;
   selectedAspectRatio: AspectRatioKey;
   backgroundConfig: BackgroundConfig;
+  textOverlays: TextOverlay[];
+  imageOpacity: number;
   setImage: (file: File) => void;
   clearImage: () => void;
   setGradient: (gradient: GradientKey) => void;
@@ -20,9 +44,12 @@ interface ImageState {
   setBackgroundType: (type: BackgroundType) => void;
   setBackgroundValue: (value: string) => void;
   setBackgroundOpacity: (opacity: number) => void;
-  exportImage: () => Promise<void>;
-  imageOpacity: number;
+  addTextOverlay: (overlay: Omit<TextOverlay, 'id'>) => void;
+  updateTextOverlay: (id: string, updates: Partial<TextOverlay>) => void;
+  removeTextOverlay: (id: string) => void;
+  clearTextOverlays: () => void;
   setImageOpacity: (opacity: number) => void;
+  exportImage: () => Promise<void>;
 }
 
 export const useImageStore = create<ImageState>((set, get) => ({
@@ -36,11 +63,8 @@ export const useImageStore = create<ImageState>((set, get) => ({
     value: 'primary_gradient',
     opacity: 1,
   },
-
+  textOverlays: [],
   imageOpacity: 1,
-  setImageOpacity: (opacity: number) => {
-    set({ imageOpacity: opacity });
-  },
 
   setImage: (file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -105,6 +129,35 @@ export const useImageStore = create<ImageState>((set, get) => ({
         opacity,
       },
     });
+  },
+
+  addTextOverlay: (overlay) => {
+    const id = `text-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    set((state) => ({
+      textOverlays: [...state.textOverlays, { ...overlay, id }],
+    }));
+  },
+
+  updateTextOverlay: (id, updates) => {
+    set((state) => ({
+      textOverlays: state.textOverlays.map((overlay) =>
+        overlay.id === id ? { ...overlay, ...updates } : overlay
+      ),
+    }));
+  },
+
+  removeTextOverlay: (id) => {
+    set((state) => ({
+      textOverlays: state.textOverlays.filter((overlay) => overlay.id !== id),
+    }));
+  },
+
+  clearTextOverlays: () => {
+    set({ textOverlays: [] });
+  },
+
+  setImageOpacity: (opacity: number) => {
+    set({ imageOpacity: opacity });
   },
 
   exportImage: async () => {

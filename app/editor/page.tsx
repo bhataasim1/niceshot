@@ -7,7 +7,6 @@ export const dynamic = 'force-dynamic';
 export default async function Page() {
   const isPro = await isProUser();
 
-  console.log('isPro', isPro);
   if (!isPro) {
     redirect('/pricing');
   }
