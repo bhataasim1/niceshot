@@ -240,6 +240,7 @@ export const TextOverlayControls = () => {
                 <SelectValue placeholder="Font weight" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="normal">Normal</SelectItem>
                 <SelectItem value="100">Thin</SelectItem>
                 <SelectItem value="300">Light</SelectItem>
                 <SelectItem value="500">Medium</SelectItem>
