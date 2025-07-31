@@ -4,6 +4,14 @@ import { GradientKey } from '@/constants/gradient-colors';
 import { AspectRatioKey } from '@/constants/aspect-ratios';
 import { BackgroundConfig, BackgroundType } from '@/constants/background-types';
 
+interface TextShadow {
+  enabled: boolean;
+  color: string;
+  blur: number;
+  offsetX: number;
+  offsetY: number;
+}
+
 interface TextOverlay {
   id: string;
   text: string;
@@ -14,6 +22,8 @@ interface TextOverlay {
   color: string;
   opacity: number;
   isVisible: boolean;
+  orientation: 'horizontal' | 'vertical';
+  textShadow: TextShadow;
 }
 
 interface ImageState {

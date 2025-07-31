@@ -44,6 +44,14 @@ export const TextOverlayControls = () => {
         color: '#ffffff',
         opacity: 1,
         isVisible: true,
+        orientation: 'horizontal',
+        textShadow: {
+          enabled: true,
+          color: 'rgba(0, 0, 0, 0.5)',
+          blur: 4,
+          offsetX: 2,
+          offsetY: 2,
+        },
       });
       setNewText('');
     }
@@ -97,6 +105,31 @@ export const TextOverlayControls = () => {
   const handleUpdateFontFamily = (fontFamily: string) => {
     if (selectedOverlay) {
       updateTextOverlay(selectedOverlay.id, { fontFamily });
+    }
+  };
+
+  const handleUpdateOrientation = (orientation: 'horizontal' | 'vertical') => {
+    if (selectedOverlay) {
+      updateTextOverlay(selectedOverlay.id, { orientation });
+    }
+  };
+
+  const handleUpdateTextShadow = (
+    updates: Partial<{
+      enabled: boolean;
+      color: string;
+      blur: number;
+      offsetX: number;
+      offsetY: number;
+    }>
+  ) => {
+    if (selectedOverlay) {
+      updateTextOverlay(selectedOverlay.id, {
+        textShadow: {
+          ...selectedOverlay.textShadow,
+          ...updates,
+        },
+      });
     }
   };
 
@@ -249,6 +282,19 @@ export const TextOverlayControls = () => {
               </SelectContent>
             </Select>
 
+            <Select
+              value={selectedOverlay.orientation}
+              onValueChange={handleUpdateOrientation}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Text orientation" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="horizontal">Horizontal</SelectItem>
+                <SelectItem value="vertical">Vertical</SelectItem>
+              </SelectContent>
+            </Select>
+
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-xs text-muted-foreground">Font Size</span>
@@ -281,6 +327,117 @@ export const TextOverlayControls = () => {
                 step={0.01}
                 className="w-full cursor-grab"
               />
+            </div>
+
+            {/* Text Shadow Controls */}
+            <div className="space-y-3 border-t pt-4">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-medium text-muted-foreground">
+                  Text Shadow
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    handleUpdateTextShadow({
+                      enabled: !selectedOverlay.textShadow.enabled,
+                    })
+                  }
+                  className="h-6 px-2 text-xs"
+                >
+                  {selectedOverlay.textShadow.enabled ? 'Disable' : 'Enable'}
+                </Button>
+              </div>
+
+              {selectedOverlay.textShadow.enabled && (
+                <div className="space-y-3">
+                  {/* Shadow Color */}
+                  <div className="flex gap-2">
+                    <Input
+                      type="color"
+                      value={selectedOverlay.textShadow.color}
+                      onChange={(e) =>
+                        handleUpdateTextShadow({ color: e.target.value })
+                      }
+                      className="w-12 h-8 p-1"
+                    />
+                    <Input
+                      placeholder="rgba(0, 0, 0, 0.5)"
+                      value={selectedOverlay.textShadow.color}
+                      onChange={(e) =>
+                        handleUpdateTextShadow({ color: e.target.value })
+                      }
+                      className="flex-1"
+                    />
+                  </div>
+
+                  {/* Shadow Blur */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-xs text-muted-foreground">
+                        Blur
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {selectedOverlay.textShadow.blur}px
+                      </span>
+                    </div>
+                    <Slider
+                      value={[selectedOverlay.textShadow.blur]}
+                      onValueChange={(value) =>
+                        handleUpdateTextShadow({ blur: value[0] })
+                      }
+                      max={20}
+                      min={0}
+                      step={1}
+                      className="w-full cursor-grab"
+                    />
+                  </div>
+
+                  {/* Shadow Offset X */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-xs text-muted-foreground">
+                        Offset X
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {selectedOverlay.textShadow.offsetX}px
+                      </span>
+                    </div>
+                    <Slider
+                      value={[selectedOverlay.textShadow.offsetX]}
+                      onValueChange={(value) =>
+                        handleUpdateTextShadow({ offsetX: value[0] })
+                      }
+                      max={20}
+                      min={-20}
+                      step={1}
+                      className="w-full cursor-grab"
+                    />
+                  </div>
+
+                  {/* Shadow Offset Y */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-xs text-muted-foreground">
+                        Offset Y
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {selectedOverlay.textShadow.offsetY}px
+                      </span>
+                    </div>
+                    <Slider
+                      value={[selectedOverlay.textShadow.offsetY]}
+                      onValueChange={(value) =>
+                        handleUpdateTextShadow({ offsetY: value[0] })
+                      }
+                      max={20}
+                      min={-20}
+                      step={1}
+                      className="w-full cursor-grab"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="space-y-2">
