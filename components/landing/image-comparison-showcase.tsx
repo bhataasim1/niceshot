@@ -65,7 +65,7 @@ export default function ImageComparisonShowcase() {
                   {image.id}
                 </h3>
                 <ImageComparison
-                  className="aspect-16/9 w-full rounded-lg border border-zinc-200 dark:border-zinc-800"
+                  className="aspect-video w-full rounded-lg border border-zinc-200 dark:border-zinc-800"
                   enableHover
                   springOptions={{
                     bounce: 0.3,
