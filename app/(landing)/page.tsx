@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
+import { BorderBeam } from '@/components/magicui/border-beam';
 
 export default function Home() {
   return (
@@ -71,6 +73,39 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+
+        <motion.div
+          className="relative flex justify-center max-w-6xl mx-auto mt-16 mb-12 rounded-lg overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.89 }}
+        >
+          <motion.div
+            className="flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.89 }}
+          >
+            <HeroVideoDialog
+              videoSrc="https://www.youtube.com/embed/zsSkoIR-acs?si=zNWO_EeK70o8rBfM"
+              thumbnailSrc="/landing-white.png"
+              thumbnailAlt="Product demo video"
+              className="max-w-6xl block dark:hidden"
+            />
+            <HeroVideoDialog
+              videoSrc="https://www.youtube.com/embed/zsSkoIR-acs?si=zNWO_EeK70o8rBfM"
+              thumbnailSrc="/twitter-image.png"
+              thumbnailAlt="Product demo video"
+              className="max-w-6xl hidden dark:block"
+            />
+          </motion.div>
+          <BorderBeam
+            size={300}
+            duration={15}
+            className="absolute top-0 left-0 h-full"
+          />
+        </motion.div>
+
         <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 mt-12 px-10">
           {mockImages.map((image, index) => (
             <ImageCard
