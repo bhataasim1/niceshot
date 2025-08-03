@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
+import { BorderBeam } from '@/components/magicui/border-beam';
+import ImageComparisonShowcase from '@/components/landing/image-comparison-showcase';
 
 export default function Home() {
   return (
@@ -71,17 +74,71 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-        <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 mt-12 px-10">
-          {mockImages.map((image, index) => (
-            <ImageCard
-              key={index}
-              url={image.url}
-              name={image.name}
-              index={index}
+
+        <motion.div
+          className="relative flex justify-center max-w-6xl mx-auto mt-16 mb-12 rounded-lg overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.89 }}
+        >
+          <motion.div
+            className="flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.89 }}
+          >
+            <HeroVideoDialog
+              videoSrc="https://www.youtube.com/embed/zsSkoIR-acs?si=zNWO_EeK70o8rBfM"
+              thumbnailSrc="/landing-white.png"
+              thumbnailAlt="Product demo video"
+              className="max-w-6xl block dark:hidden"
             />
-          ))}
-        </div>
+            <HeroVideoDialog
+              videoSrc="https://www.youtube.com/embed/zsSkoIR-acs?si=zNWO_EeK70o8rBfM"
+              thumbnailSrc="/twitter-image.png"
+              thumbnailAlt="Product demo video"
+              className="max-w-6xl hidden dark:block"
+            />
+          </motion.div>
+          <BorderBeam
+            size={300}
+            duration={15}
+            className="absolute top-0 left-0 h-full"
+          />
+        </motion.div>
+
+        <section className="pt-20 bg-muted/30">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold font-mono tracking-tight text-foreground sm:text-4xl mb-4">
+              Your Images{' '}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Reimagined
+              </span>
+            </h2>
+            <p className="text-lg text-muted-foreground font-mono max-w-2xl mx-auto">
+              {`A glimpse of what’s possible with just a few clicks.`}
+            </p>
+          </motion.div>
+          <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 mt-12 px-10">
+            {mockImages.map((image, index) => (
+              <ImageCard
+                key={index}
+                url={image.url}
+                name={image.name}
+                index={index}
+              />
+            ))}
+          </div>
+        </section>
       </section>
+
+      <ImageComparisonShowcase />
       <Footer />
     </div>
   );
