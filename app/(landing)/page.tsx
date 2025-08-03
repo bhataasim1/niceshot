@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import ImageComparisonShowcase from '@/components/landing/image-comparison-showcase';
 
 export default function Home() {
   return (
@@ -106,17 +107,38 @@ export default function Home() {
           />
         </motion.div>
 
-        <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 mt-12 px-10">
-          {mockImages.map((image, index) => (
-            <ImageCard
-              key={index}
-              url={image.url}
-              name={image.name}
-              index={index}
-            />
-          ))}
-        </div>
+        <section className="pt-20 bg-muted/30">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl font-bold font-mono tracking-tight text-foreground sm:text-4xl mb-4">
+              Your Images{' '}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Reimagined
+              </span>
+            </h2>
+            <p className="text-lg text-muted-foreground font-mono max-w-2xl mx-auto">
+              {`A glimpse of what’s possible with just a few clicks.`}
+            </p>
+          </motion.div>
+          <div className="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6 mt-12 px-10">
+            {mockImages.map((image, index) => (
+              <ImageCard
+                key={index}
+                url={image.url}
+                name={image.name}
+                index={index}
+              />
+            ))}
+          </div>
+        </section>
       </section>
+
+      <ImageComparisonShowcase />
       <Footer />
     </div>
   );
