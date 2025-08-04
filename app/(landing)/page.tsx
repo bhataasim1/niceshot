@@ -11,6 +11,7 @@ import { motion } from 'motion/react';
 import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
 import { BorderBeam } from '@/components/magicui/border-beam';
 import ImageComparisonShowcase from '@/components/landing/image-comparison-showcase';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -21,13 +22,22 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <motion.div
-              className="inline-flex font-mono items-center rounded-full border border-border/50 bg-muted/50 px-4 py-2 text-sm font-medium text-muted-foreground mb-8"
+              className="inline-flex font-mono items-center mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Zap className="mr-2 h-4 w-4 text-yellow-500" />
-              Transform images into stunning visuals
+              <Link
+                href="https://www.producthunt.com/products/niceshot?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-niceshot"
+                target="_blank"
+              >
+                <Image
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1000989&theme=light&t=1754326167242"
+                  alt="NiceShot - Turn&#0032;dull&#0032;screenshots&#0032;into&#0032;stunning&#0032;visuals | Product Hunt"
+                  width={250}
+                  height={54}
+                />
+              </Link>
             </motion.div>
 
             <motion.h1
