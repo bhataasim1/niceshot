@@ -1,5 +1,7 @@
+
 'use client';
 
+import React from 'react';
 import { BorderRadiusPicker } from './border-radius-picker';
 import { AspectRatioDropdown } from './aspect-ratio-dropdown';
 import { Slider } from './ui/slider';
@@ -22,7 +24,6 @@ export const MockupTab = () => {
         <p className="font-medium text-muted-foreground">Border Radius</p>
         <BorderRadiusPicker />
       </div>
-
       <div className="space-y-2 mb-4">
         <div className="flex justify-between">
           <p className="text-sm font-medium text-muted-foreground">Opacity</p>
