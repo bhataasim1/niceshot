@@ -1,4 +1,3 @@
-
 import puppeteer from 'puppeteer';
 
 export async function POST(req: Request) {
@@ -14,7 +13,7 @@ export async function POST(req: Request) {
   try {
     const browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle0' });
@@ -28,7 +27,10 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('Error taking screenshot:', error);
     return new Response(
-      JSON.stringify({ error: 'Failed to take screenshot', details: String(error) }),
+      JSON.stringify({
+        error: 'Failed to take screenshot',
+        details: String(error),
+      }),
       {
         status: 500,
         headers: { 'Content-Type': 'application/json' },

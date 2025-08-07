@@ -31,9 +31,12 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
     if (!url) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/screenshot?url=${encodeURIComponent(url)}`, {
-        method: 'POST',
-      });
+      const res = await fetch(
+        `/api/screenshot?url=${encodeURIComponent(url)}`,
+        {
+          method: 'POST',
+        }
+      );
       if (!res.ok) throw new Error('Failed to fetch screenshot');
       const blob = await res.blob();
       const file = new File([blob], 'screenshot.png', { type: 'image/png' });
@@ -75,7 +78,7 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
           </button>
         </div>
       )}
-      
+
       {/* Screenshot from URL section */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-muted-foreground mb-2">
