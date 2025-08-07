@@ -16,26 +16,28 @@ export async function POST(req: Request) {
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     const page = await browser.newPage();
-    
+
     // Set desktop viewport
     await page.setViewport({
       width: 1920,
       height: 1080,
       deviceScaleFactor: 1,
     });
-    
+
     // Navigate to the page and wait for it to be fully loaded
-    await page.goto(url, { 
+    await page.goto(url, {
       waitUntil: 'networkidle0',
-      timeout: 30000 
+      timeout: 30000,
     });
-    
+
     // Wait for body to be present (ensures DOM is loaded)
     await page.waitForSelector('body');
-    
+
     // Additional wait to ensure all content is rendered
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2000)));
-    
+    await page.evaluate(
+      () => new Promise((resolve) => setTimeout(resolve, 2000))
+    );
+
     const screenshotBuffer = await page.screenshot({ type: 'png' });
     await browser.close();
 
