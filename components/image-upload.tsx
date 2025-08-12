@@ -5,6 +5,8 @@ import { Image as ImageIcon, Upload, Camera } from 'lucide-react';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useImageStore } from '@/lib/store';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
 interface ImageUploadProps {
   onImageUpload?: (file: File) => void;
@@ -70,12 +72,12 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
             alt={imageName || 'Uploaded image'}
             className="max-w-full max-h-64 rounded-lg border"
           />
-          <button
+          <Button
             onClick={clearImage}
             className="mt-2 px-3 py-1 bg-red-500 text-white rounded"
           >
             Remove Image
-          </button>
+          </Button>
         </div>
       )}
 
@@ -85,7 +87,7 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
           Screenshot from URL
         </label>
         <div className="flex gap-2">
-          <input
+          <Input
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -93,14 +95,15 @@ export function ImageUpload({ onImageUpload, className }: ImageUploadProps) {
             className="flex-1 border rounded-md px-3 py-2 text-sm"
             disabled={loading}
           />
-          <button
+          <Button
             onClick={handleScreenshot}
             disabled={loading || !url}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition-colors flex items-center gap-2"
+            variant={uploadedImageUrl ? 'default' : 'secondary'}
+            className="px-4 py-2 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             <Camera className="size-4" />
             {loading ? 'Loading...' : 'Screenshot'}
-          </button>
+          </Button>
         </div>
       </div>
 
